@@ -7,7 +7,7 @@ $pass      = "";
 $dbname    = "laravel_test";
 
 //Titulo do seu livro Caixa, geralmente seu nome
-$lc_titulo = "Seu nome";
+$lc_titulo = "Costa";
 
 //Autenticacao simples
 $usuario   = "admin";

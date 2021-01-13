@@ -191,7 +191,7 @@ else
                 ?>
 
                     <div style="padding:5px; background-color:#FF6; text-align:center; color:#030">
-                        <strong>Esta categoria n�o pode ser removida, pois h� movimentos associados a esta</strong>
+                        <strong>Esta categoria não pode ser removida, pois há movimentos associados a ela</strong>
                     </div>
 
                 <?php } ?>
@@ -278,13 +278,13 @@ else
                             <td valign="top" align="right">
                                 <b>Editar/Remover Categorias:</b><br /><br />
                                 <?php
-                                $qr = mysqli_query($conn, "SELECT id, nome FROM lc_cat");
+                                $qr = mysqli_query($conn, "SELECT id, nome FROM lc_cat ORDER BY nome ASC");
                                 while ($row = mysqli_fetch_array($qr)) {
                                 ?>
                                     <div id="editar2_cat_<?php echo $row['id'] ?>">
                                         <?php echo $row['nome'] ?>
 
-                                        <a style="font-size:10px; color:#666" onclick="return confirm('Tem certeza que deseja remover esta categoria?\nAten��o: Apenas categorias sem movimentos associados poder�o ser removidas.')" href="?mes=<?php echo $mes_hoje ?>&ano=<?php echo $ano_hoje ?>&acao=apagar_cat&id=<?php echo $row['id'] ?>" title="Remover">[remover]</a>
+                                        <a style="font-size:10px; color:#666" onclick="return confirm('Tem certeza que deseja remover esta categoria?\nAtenção: Apenas categorias sem movimentos associados poderão ser removidas.')" href="?mes=<?php echo $mes_hoje ?>&ano=<?php echo $ano_hoje ?>&acao=apagar_cat&id=<?php echo $row['id'] ?>" title="Remover">[remover]</a>
                                         <a href="javascript:;" style="font-size:10px; color:#666" onclick="document.getElementById('editar_cat_<?php echo $row['id'] ?>').style.display=''; document.getElementById('editar2_cat_<?php echo $row['id'] ?>').style.display='none'" title="Editar">[editar]</a>
 
                                     </div>
@@ -308,7 +308,7 @@ else
                 <div style=" background-color:#F1F1F1; padding:10px; border:1px solid #999; margin:5px; display:none" id="add_movimento">
                     <h3>Adicionar Movimento</h3>
                     <?php
-                    $qr = mysqli_query($conn, "SELECT * FROM lc_cat");
+                    $qr = mysqli_query($conn, "SELECT * FROM lc_cat ORDER BY nome ASC");
                     if (mysqli_num_rows($qr) == 0)
                         echo "Adicione ao menos uma categoria";
 
@@ -341,7 +341,7 @@ else
                             <br />
                             <br />
 
-                            <strong>Descri��o:</strong><br />
+                            <strong>Descrição:</strong><br />
                             <input type="text" name="descricao" size="100" maxlength="255" />
 
                             <br />
@@ -377,14 +377,14 @@ else
                 ?>
 
                 <fieldset>
-                    <legend><strong>Entradas e Sa�das deste m�s</strong></legend>
+                    <legend><strong>Entradas e Saídas deste mês</strong></legend>
                     <table cellpadding="0" cellspacing="0" width="100%">
                         <tr>
                             <td><span style="font-size:18px; color:#030">Entradas:</span></td>
                             <td align="right"><span style="font-size:18px; color:#030"><?php echo formata_dinheiro($entradas) ?></span></td>
                         </tr>
                         <tr>
-                            <td><span style="font-size:18px; color:#C00">Sa�das:</span></td>
+                            <td><span style="font-size:18px; color:#C00">Saídas:</span></td>
                             <td align="right"><span style="font-size:18px; color:#C00"><?php echo formata_dinheiro($saidas) ?></span></td>
                         </tr>
                         <tr>
@@ -408,7 +408,7 @@ else
 
             <td align="left" valign="top" width="450" style="background-color:#F1F1F1">
                 <fieldset>
-                    <legend>Balan�o Geral</legend>
+                    <legend>Balanço Geral</legend>
 
                     <?php
 
@@ -430,7 +430,7 @@ else
                             <td align="right"><span style="font-size:18px; color:#030"><?php echo formata_dinheiro($entradas) ?></span></td>
                         </tr>
                         <tr>
-                            <td><span style="font-size:18px; color:#C00">Sa�das:</span></td>
+                            <td><span style="font-size:18px; color:#C00">Saídas:</span></td>
                             <td align="right"><span style="font-size:18px; color:#C00"><?php echo formata_dinheiro($saidas) ?></span></td>
                         </tr>
                         <tr>
@@ -474,7 +474,7 @@ else
                     </form>
                 </div>
 
-                <h2>Movimentos deste M�s</h2>
+                <h2>Movimentos deste Mês</h2>
 
             </td>
         </tr>
@@ -563,7 +563,7 @@ else
         <tr>
             <td align="right">
                 <hr size="1" />
-                <em>Livro Caixa - <strong><?php echo $lc_titulo ?></strong> - Desenvolvido por <a href=http://www.paulocollares.com.br>Paulo Collares</a>. Vers�o 1.3 (11/06/13) <a href="login.php?sair">Fazer logout</a></em>
+                <em>Livro Caixa - <strong><?php echo $lc_titulo ?></strong> - Desenvolvido por <a href=http://www.paulocollares.com.br>Paulo Collares</a>. Versão 1.3 (11/06/13) <a href="login.php?sair">Fazer logout</a></em>
             </td>
         </tr>
     </table>

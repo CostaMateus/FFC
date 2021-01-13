@@ -45,7 +45,7 @@ if (isset($_GET['sair'])) {
 
         <tr>
             <td colspan="11" align="center">
-                Fa�a Login para entrar no sistema:
+                Faça Login para entrar no sistema:
                 <br><br>
                 <form action="" method="post">
 
@@ -65,7 +65,7 @@ if (isset($_GET['sair'])) {
         <tr>
             <td align="right">
                 <hr size="1" />
-                <em>Livro Caixa - <strong><?php echo $lc_titulo ?></strong> - Desenvolvido por <a href=http://www.paulocollares.com.br>Paulo Collares</a>. Vers�o 1.3 (11/06/13)</em>
+                <em>Livro Caixa - <strong><?php echo $lc_titulo ?></strong> - Desenvolvido por <a href=http://www.paulocollares.com.br>Paulo Collares</a>. Versão 1.3 (11/06/13)</em>
             </td>
         </tr>
     </table>
