@@ -66,15 +66,16 @@ $data = json_decode($str, true);
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-
+    <!-- Bootstrap Table CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css">
     <!-- Bootstrap Icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-
     <!-- Select 2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- Personal CSS -->
     <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
+
     <title>Finanças Família Costa - FFC</title>
 
     <style>
@@ -145,6 +146,10 @@ $data = json_decode($str, true);
         .btn-secondary {
             background-color: #A6ACB1 !important;
             border-color: #A6ACB1 !important;
+        }
+
+        .table-responsive tr th.vl {
+            min-width: 125px !important;
         }
     </style>
 </head>
@@ -347,28 +352,17 @@ $data = json_decode($str, true);
                         <div class="d-flex justify-content-between">
                             <p class="small mt-3 mb-2 ">Movimentos deste mês</p>
 
-                            <form class="form-inline " name="form_filtro_cat" method="get" action="">
-                                <input type="hidden" name="mes" value="1">
-                                <input type="hidden" name="ano" value="2021">
-                                <select id="filter_category" class="form-control form-sm" name="filtro_cat" onchange="form_filtro_cat.submit()">
-                                    <option value="">Tudo</option>
-                                    <option value="6">Salario</option>
-                                    <option value="4">Mercado</option>
-                                    <option value="5">Farmacia</option>
-                                    <option value="1">Condominio</option>
-                                </select>
-                            </form>
                         </div>
 
                         <div class="table-responsive">
-                            <table id="tableMovimento" class="table table-sm table-hover">
+                            <table id="tableMovimento_m<?=$key; ?>" class="table table-sm table-hover">
                                 <thead>
                                     <tr>
-                                        <th style="width: 10%;" class="text-center">#</th>
-                                        <th style="width: 25%" class="">Descrição</th>
-                                        <th style="width: 25%" lass="">Categoria</th>
-                                        <th style="min-width: 115px;" class="text-center">Valor</th>
-                                        <th style="width: 10%" class="text-center">Ações</th>
+                                        <th class="text-center"    >#</th>
+                                        <th class=""               >Descrição</th>
+                                        <th class=""               >Categoria</th>
+                                        <th class="text-center vl" >Valor</th>
+                                        <th class="text-center"    >Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -434,16 +428,20 @@ $data = json_decode($str, true);
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
-
+    <!-- Bootstrap Table JS -->
+    <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
     <!-- Select 2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.13.0/dist/sweetalert2.all.min.js"></script>
 
-
     <!-- Custom JS -->
     <script>
+
+        // for(let i = 1; i <= 12; i++) {
+        //     $('#tableMovimento_m' + i).bootstrapTable();
+        // }
+
         $("#search_year").select2();
         $("#filter_category").select2();
 
