@@ -18,19 +18,76 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 
+    <!-- Bootstrap Icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
     <!-- Select 2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- Personal CSS -->
     <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
     <title>Finanças Família Costa - FFC</title>
+
+    <style>
+        @media (max-width: 991.98px) {
+            .bd-navbar .navbar-nav-scroll {
+                max-width: 100%;
+                height: 2.5rem;
+                margin-top: .25rem;
+                overflow: hidden;
+            }
+
+            .bd-navbar .navbar-nav-scroll {
+                max-width: 100%;
+                height: 2.5rem;
+                margin-top: .25rem;
+                overflow: hidden;
+            }
+
+            .bd-navbar .navbar-nav-scroll .navbar-nav {
+                padding-bottom: 2rem;
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+        }
+
+        .table-mesAtual td span,
+        .table-balanco td span {
+            font-size: 18px;
+        }
+
+        .table-mesAtual td strong,
+        .table-balanco td strong {
+            font-size: 22px;
+        }
+
+        .text-entrada {
+            color: #030;
+        }
+
+        .text-saida {
+            color: #C00;
+        }
+
+        .bg-f9 {
+            background-color: #F9F9F9;
+        }
+
+        .bg-mesAtual {
+            background-color: #D3FFE2;
+        }
+
+        .bg-balanco {
+            background-color: #F1F1F1;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="container">
-
-        <nav class="navbar navbar-expand navbar-light bg-light">
+    <div class="container-fluid bg-light">
+        <nav class="container navbar navbar-expand navbar-light">
             <span class="navbar-brand mb-0 h1">Finanças Família Costa</span>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
@@ -42,72 +99,846 @@
                 </ul>
             </div>
         </nav>
+    </div>
 
+    <div class="container">
         <div class="row mt-2">
             <div class="col">
 
                 <div class="form-row justify-content-between">
-                    <div class="form-group col-6 col-md-3 col-lg-2">
+                    <div class="form-group col-6 col-md-3 col-lg-2 mb-0">
                         <label for="search_year">Escolha o ano</label>
                         <select id="search_year" class="form-control" style="width: 100%">
-                            <option value="1" selected >2021</option>
-                            <option value="2"          >2022</option>
-                            <option value="3"          >2023</option>
-                            <option value="4"          >2024</option>
-                            <option value="5"          >2025</option>
+                            <option value="1" selected>2021</option>
+                            <option value="2">2022</option>
+                            <option value="3">2023</option>
+                            <option value="4">2024</option>
+                            <option value="5">2025</option>
                         </select>
                     </div>
 
                     <div class="form-group col my-auto">
-                        <button id="new_category" type="button" class="btn btn-primary btn-sm float-right" >Nova categoria</button>
+                        <button id="new_category" type="button" class="btn btn-secondary btn-sm float-right">Nova categoria</button>
                     </div>
                 </div>
 
             </div>
         </div>
 
-        <ul class="nav nav-tabs d-flex" >
-            <li class="nav-item">
-                <a id="month_1" class="nav-link" href="#">JAN</a>
-            </li>
-            <li class="nav-item">
-                <a id="month_2" class="nav-link" href="#">FEV</a>
-            </li>
-            <li class="nav-item">
-                <a id="month_3" class="nav-link" href="#">MAR</a>
-            </li>
-            <li class="nav-item">
-                <a id="month_4" class="nav-link" href="#">ABR</a>
-            </li>
-            <li class="nav-item">
-                <a id="month_5" class="nav-link" href="#">MAI</a>
-            </li>
-            <li class="nav-item">
-                <a id="month_6" class="nav-link" href="#">JUN</a>
-            </li>
-            <li class="nav-item">
-                <a id="month_7" class="nav-link" href="#">JUL</a>
-            </li>
-            <li class="nav-item">
-                <a id="month_8" class="nav-link" href="#">AGO</a>
-            </li>
-            <li class="nav-item">
-                <a id="month_9" class="nav-link" href="#">SET</a>
-            </li>
-            <li class="nav-item">
-                <a id="month_10" class="nav-link" href="#">OUT</a>
-            </li>
-            <li class="nav-item">
-                <a id="month_11" class="nav-link" href="#">NOV</a>
-            </li>
-            <li class="nav-item">
-                <a id="month_12" class="nav-link" href="#">DEZ</a>
-            </li>
-        </ulmonth_01>
+        <header class="navbar navbar-expand navbar-light flex-column flex-md-row bd-navbar px-0 pb-0">
+            <div class="navbar-nav-scroll pb-0">
+                <ul class="nav-tabs navbar-nav bd-navbar-nav flex-row">
+                    <li class="nav-item">
+                        <a id="month_1" class="nav-link" href="#" data-tab="m1">Janeiro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="month_2" class="nav-link" href="#" data-tab="m2">Fevereiro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="month_3" class="nav-link" href="#" data-tab="m3">Março</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="month_4" class="nav-link" href="#" data-tab="m4">Abril</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="month_5" class="nav-link" href="#">Maio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="month_6" class="nav-link" href="#">Junho</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="month_7" class="nav-link" href="#">Julho</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="month_8" class="nav-link" href="#">Agosto</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="month_9" class="nav-link" href="#">Setembro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="month_10" class="nav-link" href="#">Outubro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="month_11" class="nav-link" href="#">Novembro</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="month_12" class="nav-link" href="#">Dezembro</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="tab-content clearfix">
+            <!-- JANEIRO -->
+            <div id="m1" class="tab-pane px-3 pt-3 pb-0 bg-f9 active">
+                <div class="row">
+
+                    <!-- Titulo e btn Movimento -->
+                    <div class="col-12">
+                        <div class="justify-content-between">
+                            <p class="h4 mb-0 float-left">Janeiro/21</p>
+                            <button id="new_category" type="button" class="btn btn-primary btn-sm float-right">Novo movimento</button>
+                        </div>
+                    </div>
+
+                    <!-- Tabela do mês atual -->
+                    <div class="col-12 mt-3 bg-mesAtual">
+                        <div class="d-flex justify-content-between">
+                            <p class="small mt-3 mb-2 "><strong>Entradas e Saídas deste mês</strong></p>
+
+                            <a id="btnMesAtual" class="text-dark " data-toggle="collapse" href="#table-mesAtual-jan" role="button" aria-expanded="true" aria-controls="table-mesAtual-jan">
+                                <i class="bi bi-arrow-up-square" style="font-size: 1.5rem;"></i>
+                            </a>
+                        </div>
+
+                        <table id="table-mesAtual-jan" class="table table-borderless table-mesAtual collapse show" >
+                            <tbody>
+                                <tr>
+                                    <td class="text-left py-0">
+                                        <span class="text-entrada">Entradas:</span>
+                                    </td>
+                                    <td class="text-right py-0">
+                                        <span class="text-entrada">R$ 4360,00</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left py-0">
+                                        <span class="text-saida">Saídas:</span>
+                                    </td>
+                                    <td class="text-right py-0">
+                                        <span class="text-saida">R$ 162,70</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-0" colspan="2">
+                                        <hr>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left py-0">
+                                        <strong class="text-entrada">Total:</strong>
+                                    </td>
+                                    <td class="text-right py-0">
+                                        <strong class="text-entrada">R$ 4197,30</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Tabela geral -->
+                    <div class="col-12 my-3 bg-balanco">
+                        <div class="d-flex justify-content-between">
+                            <p class="small mt-3 mb-2"><strong>Balanço geral</strong></p>
+
+                            <a id="btnBalancoGeral" class="text-dark " data-toggle="collapse" href="#table-balanco-jan" role="button" aria-expanded="false" aria-controls="table-balanco-jan">
+                                <i class="bi bi-arrow-down-square " style="font-size: 1.5rem;"></i>
+                            </a>
+
+                        </div>
+
+                        <table id="table-balanco-jan" class="table table-borderless table-balanco collapse" >
+                            <tbody>
+                                <tr>
+                                    <td class="text-left py-0">
+                                        <span class="text-entrada">Entradas:</span>
+                                    </td>
+                                    <td class="text-right py-0">
+                                        <span class="text-entrada">R$ 4360,00</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left py-0">
+                                        <span class="text-saida">Saídas:</span>
+                                    </td>
+                                    <td class="text-right py-0">
+                                        <span class="text-saida">R$ 162,70</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-0" colspan="2">
+                                        <hr>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left py-0">
+                                        <strong class="text-entrada">Total:</strong>
+                                    </td>
+                                    <td class="text-right py-0">
+                                        <strong class="text-entrada">R$ 4197,30</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Tabela movimentos -->
+                    <div class="col-12 mt-0 bg-balanco">
+                        <div class="d-flex justify-content-between">
+                            <p class="small mt-3 mb-2 "><strong>Movimentos deste mês</strong></p>
+
+                            <form class="form-inline " name="form_filtro_cat" method="get" action="">
+                                <input type="hidden" name="mes" value="1">
+                                <input type="hidden" name="ano" value="2021">
+                                <select id="filter_category" class="form-control form-sm" name="filtro_cat" onchange="form_filtro_cat.submit()">
+                                    <option value="">Tudo</option>
+                                    <option value="6">Salario</option>
+                                    <option value="4">Mercado</option>
+                                    <option value="5">Farmacia</option>
+                                    <option value="1">Condominio</option>
+                                </select>
+                            </form>
+                        </div>
+
+                        <table id="tableMovimento" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th class="">Descrição (Categoria)</th>
+                                    <th class="text-right">Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">4</td>
+                                    <td class="">
+                                        TDW
+                                        <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=6">Salario</a>)</em>
+                                        <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_1');" title="Editar">[editar]</a>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong class="text-entrada">+R$ 4300,00</strong>
+                                    </td>
+                                </tr>
+                                <tr class="d-none" id="editar_mov_1">
+                                    <td colspan="3">
+                                        <form class="" method="post" action="?mes=1&amp;ano=2021">
+                                            <input type="hidden" name="acao" value="editar_mov">
+                                            <input type="hidden" name="id" value="1">
+
+
+                                            <div class="form-group">
+                                                <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="4">
+                                            </div>
+                                            <div class="form-group">
+                                                <b>Tipo:</b> <label for="tipo_receita1" class="text-entrada"><input checked="checked" type="radio" name="tipo" value="1" id="tipo_receita1"> Receita</label>&nbsp; <label for="tipo_despesa1" class="text-saida"><input type="radio" name="tipo" value="0" id="tipo_despesa1"> Despesa</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <b>Categoria:</b>
+                                                <select name="cat">
+                                                    <option value="1">Condominio</option>
+                                                    <option value="2">Energia</option>
+                                                    <option value="3">Internet</option>
+                                                    <option value="4">Mercado</option>
+                                                    <option value="5">Farmacia</option>
+                                                    <option selected="" value="6">Salario</option>
+                                                    <option value="7">Dentista</option>
+                                                </select><br>
+                                            </div>
+                                            <div class="form-group">
+                                                <b>Valor:</b> R$<input type="text" value="4300" name="valor" size="8" maxlength="10">
+                                                <br>
+                                            </div>
+                                            <div class="form-group">
+                                                <b>Descricao:</b> <input type="text" name="descricao" value="TDW" maxlength="255">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="submit" class="input" value="Alterar">
+                                                <a class="float-right" style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=1" title="Remover">[remover]</a>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+
+                                <tr style="background-color:#F1F1F1">
+                                    <td class="text-center">5</td>
+                                    <td>Mercadinho <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=4">Mercado</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_3');" title="Editar">[editar]</a></td>
+                                    <td class="text-right"><strong class="text-saida">-R$ 30,77</strong></td>
+                                </tr>
+                                <tr class="d-none" style="background-color:#F1F1F1" id="editar_mov_3">
+                                    <td colspan="3">
+                                        <hr>
+                                        <form method="post" action="?mes=1&amp;ano=2021">
+                                            <input type="hidden" name="acao" value="editar_mov">
+                                            <input type="hidden" name="id" value="3">
+
+                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="5"><br>
+                                            <b>Tipo:</b> <label for="tipo_receita3" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita3"> Receita</label>&nbsp; <label for="tipo_despesa3" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa3"> Despesa</label><br>
+                                            <b>Categoria:</b>
+                                            <select name="cat">
+                                                <option value="1">Condominio</option>
+                                                <option value="2">Energia</option>
+                                                <option value="3">Internet</option>
+                                                <option selected="" value="4">Mercado</option>
+                                                <option value="5">Farmacia</option>
+                                                <option value="6">Salario</option>
+                                                <option value="7">Dentista</option>
+                                            </select><br>
+                                            <b>Valor:</b> R$<input type="text" value="30.77" name="valor" size="8" maxlength="10">
+                                            <br>
+                                            <b>Descricao:</b> <input type="text" name="descricao" value="Mercadinho" size="70" maxlength="255">
+
+                                            <input type="submit" class="input" value="Alterar">
+                                        </form>
+                                        <div style="text-align: right">
+                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=3" title="Remover">[remover]</a>
+                                        </div>
+                                        <hr>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center">7</td>
+                                    <td>Utensilios <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=4">Mercado</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_4');" title="Editar">[editar]</a></td>
+                                    <td class="text-right"><strong class="text-saida">-R$ 15,51</strong></td>
+                                </tr>
+                                <tr class="d-none" id="editar_mov_4">
+                                    <td colspan="3">
+                                        <hr>
+                                        <form method="post" action="?mes=1&amp;ano=2021">
+                                            <input type="hidden" name="acao" value="editar_mov">
+                                            <input type="hidden" name="id" value="4">
+
+                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="7"><br>
+                                            <b>Tipo:</b> <label for="tipo_receita4" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita4"> Receita</label>&nbsp; <label for="tipo_despesa4" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa4"> Despesa</label><br>
+                                            <b>Categoria:</b>
+                                            <select name="cat">
+                                                <option value="1">Condominio</option>
+                                                <option value="2">Energia</option>
+                                                <option value="3">Internet</option>
+                                                <option selected="" value="4">Mercado</option>
+                                                <option value="5">Farmacia</option>
+                                                <option value="6">Salario</option>
+                                                <option value="7">Dentista</option>
+                                            </select><br>
+                                            <b>Valor:</b> R$<input type="text" value="15.51" name="valor" size="8" maxlength="10">
+                                            <br>
+                                            <b>Descricao:</b> <input type="text" name="descricao" value="Utensilios" size="70" maxlength="255">
+
+                                            <input type="submit" class="input" value="Alterar">
+                                        </form>
+                                        <div style="text-align: right">
+                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=4" title="Remover">[remover]</a>
+                                        </div>
+                                        <hr>
+                                    </td>
+                                </tr>
+
+                                <tr style="background-color:#F1F1F1">
+                                    <td class="text-center">10</td>
+                                    <td>Remedios e Oleos <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=5">Farmacia</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_5');" title="Editar">[editar]</a></td>
+                                    <td class="text-right"><strong class="text-saida">-R$ 116,42</strong></td>
+                                </tr>
+                                <tr class="d-none" style="background-color:#F1F1F1" id="editar_mov_5">
+                                    <td colspan="3">
+                                        <hr>
+                                        <form method="post" action="?mes=1&amp;ano=2021">
+                                            <input type="hidden" name="acao" value="editar_mov">
+                                            <input type="hidden" name="id" value="5">
+
+                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="10"><br>
+                                            <b>Tipo:</b> <label for="tipo_receita5" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita5"> Receita</label>&nbsp; <label for="tipo_despesa5" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa5"> Despesa</label><br>
+                                            <b>Categoria:</b>
+                                            <select name="cat">
+                                                <option value="1">Condominio</option>
+                                                <option value="2">Energia</option>
+                                                <option value="3">Internet</option>
+                                                <option value="4">Mercado</option>
+                                                <option selected="" value="5">Farmacia</option>
+                                                <option value="6">Salario</option>
+                                                <option value="7">Dentista</option>
+                                            </select><br>
+                                            <b>Valor:</b> R$<input type="text" value="116.42" name="valor" size="8" maxlength="10">
+                                            <br>
+                                            <b>Descricao:</b> <input type="text" name="descricao" value="Remedios e Oleos" size="70" maxlength="255">
+
+                                            <input type="submit" class="input" value="Alterar">
+                                        </form>
+                                        <div style="text-align: right">
+                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=5" title="Remover">[remover]</a>
+                                        </div>
+                                        <hr>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center">11</td>
+                                    <td>FJMC <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=6">Salario</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_2');" title="Editar">[editar]</a></td>
+                                    <td class="text-right"><strong class="text-entrada">+R$ 60,00</strong></td>
+                                </tr>
+                                <tr class="d-none" id="editar_mov_2">
+                                    <td colspan="3">
+                                        <hr>
+                                        <form method="post" action="?mes=1&amp;ano=2021">
+                                            <input type="hidden" name="acao" value="editar_mov">
+                                            <input type="hidden" name="id" value="2">
+
+                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="11"><br>
+                                            <b>Tipo:</b> <label for="tipo_receita2" class="text-entrada"><input checked="checked" type="radio" name="tipo" value="1" id="tipo_receita2"> Receita</label>&nbsp; <label for="tipo_despesa2" class="text-saida"><input type="radio" name="tipo" value="0" id="tipo_despesa2"> Despesa</label><br>
+                                            <b>Categoria:</b>
+                                            <select name="cat">
+                                                <option value="1">Condominio</option>
+                                                <option value="2">Energia</option>
+                                                <option value="3">Internet</option>
+                                                <option value="4">Mercado</option>
+                                                <option value="5">Farmacia</option>
+                                                <option selected="" value="6">Salario</option>
+                                                <option value="7">Dentista</option>
+                                            </select><br>
+                                            <b>Valor:</b> R$<input type="text" value="60" name="valor" size="8" maxlength="10">
+                                            <br>
+                                            <b>Descricao:</b> <input type="text" name="descricao" value="FJMC" size="70" maxlength="255">
+
+                                            <input type="submit" class="input" value="Alterar">
+                                        </form>
+                                        <div style="text-align: right">
+                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=2" title="Remover">[remover]</a>
+                                        </div>
+                                        <hr>
+                                    </td>
+                                </tr>
+
+                                <tr style="background-color:#F1F1F1">
+                                    <td class="text-center">12</td>
+                                    <td>aa <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=1">Condominio</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_6');" title="Editar">[editar]</a></td>
+                                    <td class="text-right"><strong class="text-saida">-R$ 4300,00</strong></td>
+                                </tr>
+                                <tr class="d-none" style="background-color:#F1F1F1" id="editar_mov_6">
+                                    <td colspan="3">
+                                        <hr>
+                                        <form method="post" action="?mes=1&amp;ano=2021">
+                                            <input type="hidden" name="acao" value="editar_mov">
+                                            <input type="hidden" name="id" value="6">
+
+                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="12"><br>
+                                            <b>Tipo:</b> <label for="tipo_receita6" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita6"> Receita</label>&nbsp; <label for="tipo_despesa6" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa6"> Despesa</label><br>
+                                            <b>Categoria:</b>
+                                            <select name="cat">
+                                                <option selected="" value="1">Condominio</option>
+                                                <option value="2">Energia</option>
+                                                <option value="3">Internet</option>
+                                                <option value="4">Mercado</option>
+                                                <option value="5">Farmacia</option>
+                                                <option value="6">Salario</option>
+                                                <option value="7">Dentista</option>
+                                            </select><br>
+                                            <b>Valor:</b> R$<input type="text" value="4300" name="valor" size="8" maxlength="10">
+                                            <br>
+                                            <b>Descricao:</b> <input type="text" name="descricao" value="aa" size="70" maxlength="255">
+
+                                            <input type="submit" class="input" value="Alterar">
+                                        </form>
+                                        <div style="text-align: right">
+                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=6" title="Remover">[remover]</a>
+                                        </div>
+                                        <hr>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3" class="text-right">
+                                        <strong style="font-size:22px; color:#C00">R$ -102,70</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- FEVEREIRO -->
+            <div id="m2" class="tab-pane p-3 bg-f9">
+                <div class="row">
+
+                    <!-- Titulo e btn Movimento -->
+                    <div class="col-12">
+                        <div class="justify-content-between">
+                            <p class="h4 mb-0 float-left">Fevereiro/21</p>
+                            <button id="new_category" type="button" class="btn btn-primary btn-sm float-right">Novo movimento</button>
+                        </div>
+                    </div>
+
+                    <!-- Tabela do mês atual -->
+                    <div class="col-12 mt-3 bg-mesAtual">
+                        <div class="d-flex justify-content-between">
+                            <p class="small mt-3 mb-2 "><strong>Entradas e Saídas deste mês</strong></p>
+
+                            <a id="btnMesAtual" class="text-dark " data-toggle="collapse" href="#table-mesAtual-fev" role="button" aria-expanded="true" aria-controls="table-mesAtual-fev">
+                                <i class="bi bi-arrow-up-square" style="font-size: 1.5rem;"></i>
+                            </a>
+                        </div>
+
+                        <table id="table-mesAtual-fev" class="table table-borderless table-mesAtual collapse show" width="100%">
+                            <tbody>
+                                <tr>
+                                    <td class="text-left py-0">
+                                        <span class="text-entrada">Entradas:</span>
+                                    </td>
+                                    <td class="text-right py-0">
+                                        <span class="text-entrada">R$ 4360,00</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left py-0">
+                                        <span class="text-saida">Saídas:</span>
+                                    </td>
+                                    <td class="text-right py-0">
+                                        <span class="text-saida">R$ 4462,70</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-0" colspan="2">
+                                        <hr>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left py-0">
+                                        <strong class="text-saida">Total:</strong>
+                                    </td>
+                                    <td class="text-right py-0">
+                                        <strong class="text-saida">R$ -102,70</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                    <!-- Tabela geral -->
+                    <div class="col-12 my-3 bg-balanco">
+                        <div class="d-flex justify-content-between">
+                            <p class="small mt-3 mb-2"><strong>Balanço geral</strong></p>
+
+                            <a id="btnBalancoGeral" class="text-dark " data-toggle="collapse" href="#table-balanco-fev" role="button" aria-expanded="false" aria-controls="table-balanco-fev">
+                                <i class="bi bi-arrow-down-square " style="font-size: 1.5rem;"></i>
+                            </a>
+
+                        </div>
+
+                        <table id="table-balanco-fev" class="table table-borderless table-balanco collapse" >
+                            <tbody>
+                                <tr>
+                                    <td class="text-left py-0">
+                                        <span class="text-entrada">Entradas:</span>
+                                    </td>
+                                    <td class="text-right py-0">
+                                        <span class="text-entrada">R$ 4360,00</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left py-0">
+                                        <span class="text-saida">Saídas:</span>
+                                    </td>
+                                    <td class="text-right py-0">
+                                        <span class="text-saida">R$ 5360,00</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="py-0" colspan="2">
+                                        <hr>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left py-0">
+                                        <strong class="text-saida">Total:</strong>
+                                    </td>
+                                    <td class="text-right py-0">
+                                        <strong class="text-saida">R$ 1000,00</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Tabela movimentos -->
+                    <div class="col-12 mt-0 bg-balanco">
+                        <div class="d-flex justify-content-between">
+                            <p class="small mt-3 mb-2 "><strong>Movimentos deste mês</strong></p>
+
+                            <form class="form-inline " name="form_filtro_cat" method="get" action="">
+                                <input type="hidden" name="mes" value="1">
+                                <input type="hidden" name="ano" value="2021">
+                                <select id="filter_category" class="form-control form-sm" name="filtro_cat" onchange="form_filtro_cat.submit()">
+                                    <option value="">Tudo</option>
+                                    <option value="6">Salario</option>
+                                    <option value="4">Mercado</option>
+                                    <option value="5">Farmacia</option>
+                                    <option value="1">Condominio</option>
+                                </select>
+                            </form>
+                        </div>
+
+                        <table id="tableMovimento" class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">#</th>
+                                    <th class="">Descrição (Categoria)</th>
+                                    <th class="text-right">Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">4</td>
+                                    <td class="">
+                                        TDW
+                                        <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=6">Salario</a>)</em>
+                                        <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_1');" title="Editar">[editar]</a>
+                                    </td>
+                                    <td class="text-right">
+                                        <strong class="text-entrada">+R$ 4300,00</strong>
+                                    </td>
+                                </tr>
+                                <tr class="d-none" id="editar_mov_1">
+                                    <td colspan="3">
+                                        <form class="" method="post" action="?mes=1&amp;ano=2021">
+                                            <input type="hidden" name="acao" value="editar_mov">
+                                            <input type="hidden" name="id" value="1">
+
+
+                                            <div class="form-group">
+                                                <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="4">
+                                            </div>
+                                            <div class="form-group">
+                                                <b>Tipo:</b> <label for="tipo_receita1" class="text-entrada"><input checked="checked" type="radio" name="tipo" value="1" id="tipo_receita1"> Receita</label>&nbsp; <label for="tipo_despesa1" class="text-saida"><input type="radio" name="tipo" value="0" id="tipo_despesa1"> Despesa</label>
+                                            </div>
+                                            <div class="form-group">
+                                                <b>Categoria:</b>
+                                                <select name="cat">
+                                                    <option value="1">Condominio</option>
+                                                    <option value="2">Energia</option>
+                                                    <option value="3">Internet</option>
+                                                    <option value="4">Mercado</option>
+                                                    <option value="5">Farmacia</option>
+                                                    <option selected="" value="6">Salario</option>
+                                                    <option value="7">Dentista</option>
+                                                </select><br>
+                                            </div>
+                                            <div class="form-group">
+                                                <b>Valor:</b> R$<input type="text" value="4300" name="valor" size="8" maxlength="10">
+                                                <br>
+                                            </div>
+                                            <div class="form-group">
+                                                <b>Descricao:</b> <input type="text" name="descricao" value="TDW" maxlength="255">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="submit" class="input" value="Alterar">
+                                                <a class="float-right" style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=1" title="Remover">[remover]</a>
+                                            </div>
+                                        </form>
+                                    </td>
+                                </tr>
+
+                                <tr style="background-color:#F1F1F1">
+                                    <td class="text-center">5</td>
+                                    <td>Mercadinho <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=4">Mercado</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_3');" title="Editar">[editar]</a></td>
+                                    <td class="text-right"><strong class="text-saida">-R$ 30,77</strong></td>
+                                </tr>
+                                <tr class="d-none" style="background-color:#F1F1F1" id="editar_mov_3">
+                                    <td colspan="3">
+                                        <hr>
+                                        <form method="post" action="?mes=1&amp;ano=2021">
+                                            <input type="hidden" name="acao" value="editar_mov">
+                                            <input type="hidden" name="id" value="3">
+
+                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="5"><br>
+                                            <b>Tipo:</b> <label for="tipo_receita3" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita3"> Receita</label>&nbsp; <label for="tipo_despesa3" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa3"> Despesa</label><br>
+                                            <b>Categoria:</b>
+                                            <select name="cat">
+                                                <option value="1">Condominio</option>
+                                                <option value="2">Energia</option>
+                                                <option value="3">Internet</option>
+                                                <option selected="" value="4">Mercado</option>
+                                                <option value="5">Farmacia</option>
+                                                <option value="6">Salario</option>
+                                                <option value="7">Dentista</option>
+                                            </select><br>
+                                            <b>Valor:</b> R$<input type="text" value="30.77" name="valor" size="8" maxlength="10">
+                                            <br>
+                                            <b>Descricao:</b> <input type="text" name="descricao" value="Mercadinho" size="70" maxlength="255">
+
+                                            <input type="submit" class="input" value="Alterar">
+                                        </form>
+                                        <div style="text-align: right">
+                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=3" title="Remover">[remover]</a>
+                                        </div>
+                                        <hr>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center">7</td>
+                                    <td>Utensilios <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=4">Mercado</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_4');" title="Editar">[editar]</a></td>
+                                    <td class="text-right"><strong class="text-saida">-R$ 15,51</strong></td>
+                                </tr>
+                                <tr class="d-none" id="editar_mov_4">
+                                    <td colspan="3">
+                                        <hr>
+                                        <form method="post" action="?mes=1&amp;ano=2021">
+                                            <input type="hidden" name="acao" value="editar_mov">
+                                            <input type="hidden" name="id" value="4">
+
+                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="7"><br>
+                                            <b>Tipo:</b> <label for="tipo_receita4" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita4"> Receita</label>&nbsp; <label for="tipo_despesa4" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa4"> Despesa</label><br>
+                                            <b>Categoria:</b>
+                                            <select name="cat">
+                                                <option value="1">Condominio</option>
+                                                <option value="2">Energia</option>
+                                                <option value="3">Internet</option>
+                                                <option selected="" value="4">Mercado</option>
+                                                <option value="5">Farmacia</option>
+                                                <option value="6">Salario</option>
+                                                <option value="7">Dentista</option>
+                                            </select><br>
+                                            <b>Valor:</b> R$<input type="text" value="15.51" name="valor" size="8" maxlength="10">
+                                            <br>
+                                            <b>Descricao:</b> <input type="text" name="descricao" value="Utensilios" size="70" maxlength="255">
+
+                                            <input type="submit" class="input" value="Alterar">
+                                        </form>
+                                        <div style="text-align: right">
+                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=4" title="Remover">[remover]</a>
+                                        </div>
+                                        <hr>
+                                    </td>
+                                </tr>
+
+                                <tr style="background-color:#F1F1F1">
+                                    <td class="text-center">10</td>
+                                    <td>Remedios e Oleos <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=5">Farmacia</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_5');" title="Editar">[editar]</a></td>
+                                    <td class="text-right"><strong class="text-saida">-R$ 116,42</strong></td>
+                                </tr>
+                                <tr class="d-none" style="background-color:#F1F1F1" id="editar_mov_5">
+                                    <td colspan="3">
+                                        <hr>
+                                        <form method="post" action="?mes=1&amp;ano=2021">
+                                            <input type="hidden" name="acao" value="editar_mov">
+                                            <input type="hidden" name="id" value="5">
+
+                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="10"><br>
+                                            <b>Tipo:</b> <label for="tipo_receita5" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita5"> Receita</label>&nbsp; <label for="tipo_despesa5" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa5"> Despesa</label><br>
+                                            <b>Categoria:</b>
+                                            <select name="cat">
+                                                <option value="1">Condominio</option>
+                                                <option value="2">Energia</option>
+                                                <option value="3">Internet</option>
+                                                <option value="4">Mercado</option>
+                                                <option selected="" value="5">Farmacia</option>
+                                                <option value="6">Salario</option>
+                                                <option value="7">Dentista</option>
+                                            </select><br>
+                                            <b>Valor:</b> R$<input type="text" value="116.42" name="valor" size="8" maxlength="10">
+                                            <br>
+                                            <b>Descricao:</b> <input type="text" name="descricao" value="Remedios e Oleos" size="70" maxlength="255">
+
+                                            <input type="submit" class="input" value="Alterar">
+                                        </form>
+                                        <div style="text-align: right">
+                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=5" title="Remover">[remover]</a>
+                                        </div>
+                                        <hr>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td class="text-center">11</td>
+                                    <td>FJMC <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=6">Salario</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_2');" title="Editar">[editar]</a></td>
+                                    <td class="text-right"><strong class="text-entrada">+R$ 60,00</strong></td>
+                                </tr>
+                                <tr class="d-none" id="editar_mov_2">
+                                    <td colspan="3">
+                                        <hr>
+                                        <form method="post" action="?mes=1&amp;ano=2021">
+                                            <input type="hidden" name="acao" value="editar_mov">
+                                            <input type="hidden" name="id" value="2">
+
+                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="11"><br>
+                                            <b>Tipo:</b> <label for="tipo_receita2" class="text-entrada"><input checked="checked" type="radio" name="tipo" value="1" id="tipo_receita2"> Receita</label>&nbsp; <label for="tipo_despesa2" class="text-saida"><input type="radio" name="tipo" value="0" id="tipo_despesa2"> Despesa</label><br>
+                                            <b>Categoria:</b>
+                                            <select name="cat">
+                                                <option value="1">Condominio</option>
+                                                <option value="2">Energia</option>
+                                                <option value="3">Internet</option>
+                                                <option value="4">Mercado</option>
+                                                <option value="5">Farmacia</option>
+                                                <option selected="" value="6">Salario</option>
+                                                <option value="7">Dentista</option>
+                                            </select><br>
+                                            <b>Valor:</b> R$<input type="text" value="60" name="valor" size="8" maxlength="10">
+                                            <br>
+                                            <b>Descricao:</b> <input type="text" name="descricao" value="FJMC" size="70" maxlength="255">
+
+                                            <input type="submit" class="input" value="Alterar">
+                                        </form>
+                                        <div style="text-align: right">
+                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=2" title="Remover">[remover]</a>
+                                        </div>
+                                        <hr>
+                                    </td>
+                                </tr>
+
+                                <tr style="background-color:#F1F1F1">
+                                    <td class="text-center">12</td>
+                                    <td>aa <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=1">Condominio</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_6');" title="Editar">[editar]</a></td>
+                                    <td class="text-right"><strong class="text-saida">-R$ 4300,00</strong></td>
+                                </tr>
+                                <tr class="d-none" style="background-color:#F1F1F1" id="editar_mov_6">
+                                    <td colspan="3">
+                                        <hr>
+                                        <form method="post" action="?mes=1&amp;ano=2021">
+                                            <input type="hidden" name="acao" value="editar_mov">
+                                            <input type="hidden" name="id" value="6">
+
+                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="12"><br>
+                                            <b>Tipo:</b> <label for="tipo_receita6" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita6"> Receita</label>&nbsp; <label for="tipo_despesa6" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa6"> Despesa</label><br>
+                                            <b>Categoria:</b>
+                                            <select name="cat">
+                                                <option selected="" value="1">Condominio</option>
+                                                <option value="2">Energia</option>
+                                                <option value="3">Internet</option>
+                                                <option value="4">Mercado</option>
+                                                <option value="5">Farmacia</option>
+                                                <option value="6">Salario</option>
+                                                <option value="7">Dentista</option>
+                                            </select><br>
+                                            <b>Valor:</b> R$<input type="text" value="4300" name="valor" size="8" maxlength="10">
+                                            <br>
+                                            <b>Descricao:</b> <input type="text" name="descricao" value="aa" size="70" maxlength="255">
+
+                                            <input type="submit" class="input" value="Alterar">
+                                        </form>
+                                        <div style="text-align: right">
+                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=6" title="Remover">[remover]</a>
+                                        </div>
+                                        <hr>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td colspan="3" class="text-right">
+                                        <strong style="font-size:22px; color:#C00">R$ -102,70</strong>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
     </div>
 
-
+    <footer id="footer" class="mt-3 py-3" >
+        <div class="container">
+            <div class="row">
+                <div class="col text-center">
+                    <h6 class="mb-0" >&copy; <?=date('Y') ?> Finanças Família Costa</h6>
+                    <small class="mb-0" >Powered by <a href="https://www.linkedin.com/in/costamateus6/" target="_blank" rel="noopener noreferrer" >Mateus Costa</a></small>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -124,52 +955,68 @@
     <!-- Custom JS -->
     <script>
         $("#search_year").select2();
+        $("#filter_category").select2();
 
         $(".nav-link").on('click', function() {
             $('.nav-link').removeClass('active');
             $(this).addClass('active');
+
+            $('.tab-pane').removeClass('active');
+
+            $('#' + $(this).data('tab')).addClass('active');
+
         });
 
-        let month_curr = <?=date('m'); ?>;
-        switch ( month_curr ) {
+        let month_curr = <?= date('m'); ?>;
+        switch (month_curr) {
             case 1:
-                $('#month_'+month_curr).addClass('active');
+                $('#month_' + month_curr).addClass('active');
                 break;
             case 2:
-                $('#month_'+month_curr).addClass('active');
+                $('#month_' + month_curr).addClass('active');
                 break;
             case 3:
-                $('#month_'+month_curr).addClass('active');
+                $('#month_' + month_curr).addClass('active');
                 break;
             case 4:
-                $('#month_'+month_curr).addClass('active');
+                $('#month_' + month_curr).addClass('active');
                 break;
             case 5:
-                $('#month_'+month_curr).addClass('active');
+                $('#month_' + month_curr).addClass('active');
                 break;
             case 6:
-                $('#month_'+month_curr).addClass('active');
+                $('#month_' + month_curr).addClass('active');
                 break;
             case 7:
-                $('#month_'+month_curr).addClass('active');
+                $('#month_' + month_curr).addClass('active');
                 break;
             case 8:
-                $('#month_'+month_curr).addClass('active');
+                $('#month_' + month_curr).addClass('active');
                 break;
             case 9:
-                $('#month_'+month_curr).addClass('active');
+                $('#month_' + month_curr).addClass('active');
                 break;
             case 10:
-                $('#month_'+month_curr).addClass('active');
+                $('#month_' + month_curr).addClass('active');
                 break;
             case 11:
-                $('#month_'+month_curr).addClass('active');
+                $('#month_' + month_curr).addClass('active');
                 break;
             case 12:
-                $('#month_'+month_curr).addClass('active');
+                $('#month_' + month_curr).addClass('active');
                 break;
         }
 
+        $('#btnMesAtual').click(function() {
+            $(this).find('i').toggleClass('bi-arrow-up-square bi-arrow-down-square');
+        });
+        $('#btnBalancoGeral').click(function() {
+            $(this).find('i').toggleClass('bi-arrow-up-square bi-arrow-down-square');
+        });
+
+        window.editFunc = function(id) {
+            $('#' + id).toggleClass('d-none d-table-row');
+        }
     </script>
 </body>
 
