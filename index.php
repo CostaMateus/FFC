@@ -1,3 +1,52 @@
+<?php
+
+function formatDate($m, $y) {
+    switch ($m) {
+        case 1:
+            return "JAN/" . substr($y, -2);
+            break;
+        case 2:
+            return "FEV/" . substr($y, -2);
+            break;
+        case 3:
+            return "MAR/" . substr($y, -2);
+            break;
+        case 4:
+            return "ABR/" . substr($y, -2);
+            break;
+        case 5:
+            return "MAI/" . substr($y, -2);
+            break;
+        case 6:
+            return "JUN/" . substr($y, -2);
+            break;
+        case 7:
+            return "JUL/" . substr($y, -2);
+            break;
+        case 8:
+            return "AGO/" . substr($y, -2);
+            break;
+        case 9:
+            return "SET/" . substr($y, -2);
+            break;
+        case 10:
+            return "OUT/" . substr($y, -2);
+            break;
+        case 11:
+            return "NOV/" . substr($y, -2);
+            break;
+        case 12:
+            return "DEZ/" . substr($y, -2);
+            break;
+    }
+}
+
+$str  = file_get_contents('data.json');
+
+$data = json_decode($str, true);
+
+?>
+
 <!DOCTYPE html>
 
 <html lang="pt-br">
@@ -57,10 +106,12 @@
             font-size: 18px;
         }
 
-        .table-mesAtual td strong,
-        .table-balanco td strong {
+        /* .table-mesAtual .text-entrada,
+        .table-mesAtual .text-saida,
+        .table-balanco .text-entrada,
+        .table-balanco .text-saida {
             font-size: 22px;
-        }
+        } */
 
         .text-entrada {
             color: #030;
@@ -70,23 +121,37 @@
             color: #C00;
         }
 
-        .bg-f9 {
-            background-color: #F9F9F9;
+        .bg-fa {
+            background-color: #FAFAFA;
         }
 
         .bg-mesAtual {
-            background-color: #D3FFE2;
+            background-color: #F0FFF5;
         }
 
         .bg-balanco {
-            background-color: #F1F1F1;
+            background-color: #F5F5F5;
+        }
+
+        .table>tbody>tr>td {
+            vertical-align: middle !important;
+        }
+
+        .btn-edit,
+        .btn-del {
+            font-size: 1.25rem;
+        }
+
+        .btn-secondary {
+            background-color: #A6ACB1 !important;
+            border-color: #A6ACB1 !important;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="container-fluid bg-light">
+    <div class="container-fluid bg-fa">
         <nav class="container navbar navbar-expand navbar-light">
             <span class="navbar-brand mb-0 h1">Finanças Família Costa</span>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -118,109 +183,128 @@
                     </div>
 
                     <div class="form-group col my-auto">
-                        <button id="new_category" type="button" class="btn btn-secondary btn-sm float-right">Nova categoria</button>
+                        <button id="new_category" type="button" class="btn btn-light btn-sm float-right">Nova categoria</button>
                     </div>
                 </div>
 
             </div>
         </div>
 
-        <header class="navbar navbar-expand navbar-light flex-column flex-md-row bd-navbar px-0 pb-0">
-            <div class="navbar-nav-scroll pb-0">
-                <ul class="nav-tabs navbar-nav bd-navbar-nav flex-row">
-                    <li class="nav-item">
-                        <a id="month_1" class="nav-link" href="#" data-tab="m1">Janeiro</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="month_2" class="nav-link" href="#" data-tab="m2">Fevereiro</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="month_3" class="nav-link" href="#" data-tab="m3">Março</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="month_4" class="nav-link" href="#" data-tab="m4">Abril</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="month_5" class="nav-link" href="#">Maio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="month_6" class="nav-link" href="#">Junho</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="month_7" class="nav-link" href="#">Julho</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="month_8" class="nav-link" href="#">Agosto</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="month_9" class="nav-link" href="#">Setembro</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="month_10" class="nav-link" href="#">Outubro</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="month_11" class="nav-link" href="#">Novembro</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="month_12" class="nav-link" href="#">Dezembro</a>
-                    </li>
-                </ul>
+        <div class="btnMeses row mb-3">
+            <div class="col-3 text-center pr-2 mt-3">
+                <a id="month_1"  href="#m1"  data-tab="m1"  class="btn btn-light btn-block">JAN</a>
             </div>
-        </header>
-
+            <div class="col-3 text-center px-2 mt-3">
+                <a id="month_2"  href="#m2"  data-tab="m2"  class="btn btn-light btn-block">FEV</a>
+            </div>
+            <div class="col-3 text-center px-2 mt-3">
+                <a id="month_3"  href="#m3"  data-tab="m3"  class="btn btn-light btn-block">MAR</a>
+            </div>
+            <div class="col-3 text-center pl-2 mt-3">
+                <a id="month_4"  href="#m4"  data-tab="m4"  class="btn btn-light btn-block">ABR</a>
+            </div>
+            <div class="col-3 text-center pr-2 mt-3">
+                <a id="month_5"  href="#m5"  data-tab="m5"  class="btn btn-light btn-block">MAI</a>
+            </div>
+            <div class="col-3 text-center px-2 mt-3">
+                <a id="month_6"  href="#m6"  data-tab="m6"  class="btn btn-light btn-block">JUN</a>
+            </div>
+            <div class="col-3 text-center px-2 mt-3">
+                <a id="month_7"  href="#m7"  data-tab="m7"  class="btn btn-light btn-block">JUL</a>
+            </div>
+            <div class="col-3 text-center pl-2 mt-3">
+                <a id="month_8"  href="#m8"  data-tab="m8"  class="btn btn-light btn-block">AGO</a>
+            </div>
+            <div class="col-3 text-center pr-2 mt-3">
+                <a id="month_9"  href="#m9"  data-tab="m9"  class="btn btn-light btn-block">SET</a>
+            </div>
+            <div class="col-3 text-center px-2 mt-3">
+                <a id="month_10" href="#m10" data-tab="m10" class="btn btn-light btn-block">OUT</a>
+            </div>
+            <div class="col-3 text-center px-2 mt-3">
+                <a id="month_11" href="#m11" data-tab="m11" class="btn btn-light btn-block">NOV</a>
+            </div>
+            <div class="col-3 text-center pl-2 mt-3">
+                <a id="month_12" href="#m12" data-tab="m12" class="btn btn-light btn-block">DEZ</a>
+            </div>
+        </div>
+    </div>
+    <div class="container pb-3 bg-fa">
         <div class="tab-content clearfix">
-            <!-- JANEIRO -->
-            <div id="m1" class="tab-pane px-3 pt-3 pb-0 bg-f9 active">
+
+            <?php
+                foreach ($data as $year => $months)
+                {
+                    if ($year == '2021')
+                    {
+                        foreach ($months as $key => $movs)
+                        {
+                            $mes_ent = 0;
+                            $mes_sai = 0;
+                            $mes_ttl = 0;
+
+                            foreach ($movs as $i => $value)
+                            {
+                                if ($value['type']) {
+                                    $mes_ent += $value['value'];
+                                } else {
+                                    $mes_sai += $value['value'];
+                                }
+                            }
+
+                            $mes_ttl = ($mes_ent - $mes_sai);
+
+
+                            if ($mes_ttl > 0) {
+                                $txt = "text-entrada";
+                                $sgn = "+R$ ";
+                            } elseif ($mes_ttl < 0) {
+                                $mes_ttl = substr($mes_ttl, 1);
+                                $txt = "text-saida";
+                                $sgn = "-R$ ";
+                            } else {
+                                $txt = "";
+                                $sgn = "R$ ";
+                            }
+            ?>
+            <!-- MES <?=$key; ?> -->
+            <div id="m<?=$key; ?>" class="tab-pane px-3 pt-3 pb-0 bg-fa active">
                 <div class="row">
 
                     <!-- Titulo e btn Movimento -->
                     <div class="col-12">
                         <div class="justify-content-between">
-                            <p class="h4 mb-0 float-left">Janeiro/21</p>
-                            <button id="new_category" type="button" class="btn btn-primary btn-sm float-right">Novo movimento</button>
+                            <p class="h4 mb-0 float-left"><?=formatDate($key,$year); ?></p>
+                            <button id="new_category" type="button" class="btn btn-secondary btn-sm float-right">Novo movimento</button>
                         </div>
                     </div>
 
                     <!-- Tabela do mês atual -->
                     <div class="col-12 mt-3 bg-mesAtual">
                         <div class="d-flex justify-content-between">
-                            <p class="small mt-3 mb-2 "><strong>Entradas e Saídas deste mês</strong></p>
+                            <p class="small mt-3 mb-2 ">Entradas e saídas deste mês</p>
 
                             <a id="btnMesAtual" class="text-dark " data-toggle="collapse" href="#table-mesAtual-jan" role="button" aria-expanded="true" aria-controls="table-mesAtual-jan">
                                 <i class="bi bi-arrow-up-square" style="font-size: 1.5rem;"></i>
                             </a>
                         </div>
 
-                        <table id="table-mesAtual-jan" class="table table-borderless table-mesAtual collapse show" >
+                        <table id="table-mesAtual-jan" class="table table-borderless table-mesAtual collapse show">
                             <tbody>
                                 <tr>
-                                    <td class="text-left py-0">
-                                        <span class="text-entrada">Entradas:</span>
-                                    </td>
-                                    <td class="text-right py-0">
-                                        <span class="text-entrada">R$ 4360,00</span>
-                                    </td>
+                                    <td class="text-left py-0 text-entrada">Entradas:</td>
+                                    <td class="text-right py-0 text-entrada"><?= $sgn . number_format($mes_ent, 2, ',', '.');?></td>
                                 </tr>
                                 <tr>
-                                    <td class="text-left py-0">
-                                        <span class="text-saida">Saídas:</span>
-                                    </td>
-                                    <td class="text-right py-0">
-                                        <span class="text-saida">R$ 162,70</span>
-                                    </td>
+                                    <td class="text-left py-0 text-saida">Saídas:</td>
+                                    <td class="text-right py-0 text-saida"><?= $sgn . number_format($mes_sai, 2, ',', '.');?></td>
                                 </tr>
                                 <tr>
-                                    <td class="py-0" colspan="2">
-                                        <hr>
-                                    </td>
+                                    <td class="py-0" colspan="2"> <hr> </td>
                                 </tr>
                                 <tr>
-                                    <td class="text-left py-0">
-                                        <strong class="text-entrada">Total:</strong>
-                                    </td>
-                                    <td class="text-right py-0">
-                                        <strong class="text-entrada">R$ 4197,30</strong>
-                                    </td>
+                                    <td class="text-left py-0 <?= $txt ?>">Total:</td>
+                                    <td class="text-right py-0 <?= $txt ?>"><?= $sgn . number_format($mes_ttl, 2, ',', '.');?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -229,7 +313,7 @@
                     <!-- Tabela geral -->
                     <div class="col-12 my-3 bg-balanco">
                         <div class="d-flex justify-content-between">
-                            <p class="small mt-3 mb-2"><strong>Balanço geral</strong></p>
+                            <p class="small mt-3 mb-2">Balanço geral</p>
 
                             <a id="btnBalancoGeral" class="text-dark " data-toggle="collapse" href="#table-balanco-jan" role="button" aria-expanded="false" aria-controls="table-balanco-jan">
                                 <i class="bi bi-arrow-down-square " style="font-size: 1.5rem;"></i>
@@ -237,36 +321,22 @@
 
                         </div>
 
-                        <table id="table-balanco-jan" class="table table-borderless table-balanco collapse" >
+                        <table id="table-balanco-jan" class="table table-borderless table-balanco collapse">
                             <tbody>
                                 <tr>
-                                    <td class="text-left py-0">
-                                        <span class="text-entrada">Entradas:</span>
-                                    </td>
-                                    <td class="text-right py-0">
-                                        <span class="text-entrada">R$ 4360,00</span>
-                                    </td>
+                                    <td class="text-left py-0 text-entrada">Entradas:</td>
+                                    <td class="text-right py-0 text-entrada">R$ 0,00</td>
                                 </tr>
                                 <tr>
-                                    <td class="text-left py-0">
-                                        <span class="text-saida">Saídas:</span>
-                                    </td>
-                                    <td class="text-right py-0">
-                                        <span class="text-saida">R$ 162,70</span>
-                                    </td>
+                                    <td class="text-left py-0 text-saida">Saídas:</td>
+                                    <td class="text-right py-0 text-saida">R$ 0,00</td>
                                 </tr>
                                 <tr>
-                                    <td class="py-0" colspan="2">
-                                        <hr>
-                                    </td>
+                                    <td class="py-0" colspan="2"> <hr> </td>
                                 </tr>
                                 <tr>
-                                    <td class="text-left py-0">
-                                        <strong class="text-entrada">Total:</strong>
-                                    </td>
-                                    <td class="text-right py-0">
-                                        <strong class="text-entrada">R$ 4197,30</strong>
-                                    </td>
+                                    <td class="text-left py-0 text-entrada">Total:</td>
+                                    <td class="text-right py-0 text-entrada">R$ 0,00</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -275,7 +345,7 @@
                     <!-- Tabela movimentos -->
                     <div class="col-12 mt-0 bg-balanco">
                         <div class="d-flex justify-content-between">
-                            <p class="small mt-3 mb-2 "><strong>Movimentos deste mês</strong></p>
+                            <p class="small mt-3 mb-2 ">Movimentos deste mês</p>
 
                             <form class="form-inline " name="form_filtro_cat" method="get" action="">
                                 <input type="hidden" name="mes" value="1">
@@ -290,651 +360,71 @@
                             </form>
                         </div>
 
-                        <table id="tableMovimento" class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">#</th>
-                                    <th class="">Descrição (Categoria)</th>
-                                    <th class="text-right">Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="text-center">4</td>
-                                    <td class="">
-                                        TDW
-                                        <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=6">Salario</a>)</em>
-                                        <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_1');" title="Editar">[editar]</a>
-                                    </td>
-                                    <td class="text-right">
-                                        <strong class="text-entrada">+R$ 4300,00</strong>
-                                    </td>
-                                </tr>
-                                <tr class="d-none" id="editar_mov_1">
-                                    <td colspan="3">
-                                        <form class="" method="post" action="?mes=1&amp;ano=2021">
-                                            <input type="hidden" name="acao" value="editar_mov">
-                                            <input type="hidden" name="id" value="1">
+                        <div class="table-responsive">
+                            <table id="tableMovimento" class="table table-sm table-hover">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 10%;" class="text-center">#</th>
+                                        <th style="width: 25%" class="">Descrição</th>
+                                        <th style="width: 25%" lass="">Categoria</th>
+                                        <th style="min-width: 115px;" class="text-center">Valor</th>
+                                        <th style="width: 10%" class="text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+            <?php
 
-
-                                            <div class="form-group">
-                                                <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="4">
-                                            </div>
-                                            <div class="form-group">
-                                                <b>Tipo:</b> <label for="tipo_receita1" class="text-entrada"><input checked="checked" type="radio" name="tipo" value="1" id="tipo_receita1"> Receita</label>&nbsp; <label for="tipo_despesa1" class="text-saida"><input type="radio" name="tipo" value="0" id="tipo_despesa1"> Despesa</label>
-                                            </div>
-                                            <div class="form-group">
-                                                <b>Categoria:</b>
-                                                <select name="cat">
-                                                    <option value="1">Condominio</option>
-                                                    <option value="2">Energia</option>
-                                                    <option value="3">Internet</option>
-                                                    <option value="4">Mercado</option>
-                                                    <option value="5">Farmacia</option>
-                                                    <option selected="" value="6">Salario</option>
-                                                    <option value="7">Dentista</option>
-                                                </select><br>
-                                            </div>
-                                            <div class="form-group">
-                                                <b>Valor:</b> R$<input type="text" value="4300" name="valor" size="8" maxlength="10">
-                                                <br>
-                                            </div>
-                                            <div class="form-group">
-                                                <b>Descricao:</b> <input type="text" name="descricao" value="TDW" maxlength="255">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="submit" class="input" value="Alterar">
-                                                <a class="float-right" style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=1" title="Remover">[remover]</a>
-                                            </div>
-                                        </form>
-                                    </td>
-                                </tr>
-
-                                <tr style="background-color:#F1F1F1">
-                                    <td class="text-center">5</td>
-                                    <td>Mercadinho <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=4">Mercado</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_3');" title="Editar">[editar]</a></td>
-                                    <td class="text-right"><strong class="text-saida">-R$ 30,77</strong></td>
-                                </tr>
-                                <tr class="d-none" style="background-color:#F1F1F1" id="editar_mov_3">
-                                    <td colspan="3">
-                                        <hr>
-                                        <form method="post" action="?mes=1&amp;ano=2021">
-                                            <input type="hidden" name="acao" value="editar_mov">
-                                            <input type="hidden" name="id" value="3">
-
-                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="5"><br>
-                                            <b>Tipo:</b> <label for="tipo_receita3" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita3"> Receita</label>&nbsp; <label for="tipo_despesa3" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa3"> Despesa</label><br>
-                                            <b>Categoria:</b>
-                                            <select name="cat">
-                                                <option value="1">Condominio</option>
-                                                <option value="2">Energia</option>
-                                                <option value="3">Internet</option>
-                                                <option selected="" value="4">Mercado</option>
-                                                <option value="5">Farmacia</option>
-                                                <option value="6">Salario</option>
-                                                <option value="7">Dentista</option>
-                                            </select><br>
-                                            <b>Valor:</b> R$<input type="text" value="30.77" name="valor" size="8" maxlength="10">
-                                            <br>
-                                            <b>Descricao:</b> <input type="text" name="descricao" value="Mercadinho" size="70" maxlength="255">
-
-                                            <input type="submit" class="input" value="Alterar">
-                                        </form>
-                                        <div style="text-align: right">
-                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=3" title="Remover">[remover]</a>
-                                        </div>
-                                        <hr>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="text-center">7</td>
-                                    <td>Utensilios <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=4">Mercado</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_4');" title="Editar">[editar]</a></td>
-                                    <td class="text-right"><strong class="text-saida">-R$ 15,51</strong></td>
-                                </tr>
-                                <tr class="d-none" id="editar_mov_4">
-                                    <td colspan="3">
-                                        <hr>
-                                        <form method="post" action="?mes=1&amp;ano=2021">
-                                            <input type="hidden" name="acao" value="editar_mov">
-                                            <input type="hidden" name="id" value="4">
-
-                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="7"><br>
-                                            <b>Tipo:</b> <label for="tipo_receita4" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita4"> Receita</label>&nbsp; <label for="tipo_despesa4" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa4"> Despesa</label><br>
-                                            <b>Categoria:</b>
-                                            <select name="cat">
-                                                <option value="1">Condominio</option>
-                                                <option value="2">Energia</option>
-                                                <option value="3">Internet</option>
-                                                <option selected="" value="4">Mercado</option>
-                                                <option value="5">Farmacia</option>
-                                                <option value="6">Salario</option>
-                                                <option value="7">Dentista</option>
-                                            </select><br>
-                                            <b>Valor:</b> R$<input type="text" value="15.51" name="valor" size="8" maxlength="10">
-                                            <br>
-                                            <b>Descricao:</b> <input type="text" name="descricao" value="Utensilios" size="70" maxlength="255">
-
-                                            <input type="submit" class="input" value="Alterar">
-                                        </form>
-                                        <div style="text-align: right">
-                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=4" title="Remover">[remover]</a>
-                                        </div>
-                                        <hr>
-                                    </td>
-                                </tr>
-
-                                <tr style="background-color:#F1F1F1">
-                                    <td class="text-center">10</td>
-                                    <td>Remedios e Oleos <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=5">Farmacia</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_5');" title="Editar">[editar]</a></td>
-                                    <td class="text-right"><strong class="text-saida">-R$ 116,42</strong></td>
-                                </tr>
-                                <tr class="d-none" style="background-color:#F1F1F1" id="editar_mov_5">
-                                    <td colspan="3">
-                                        <hr>
-                                        <form method="post" action="?mes=1&amp;ano=2021">
-                                            <input type="hidden" name="acao" value="editar_mov">
-                                            <input type="hidden" name="id" value="5">
-
-                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="10"><br>
-                                            <b>Tipo:</b> <label for="tipo_receita5" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita5"> Receita</label>&nbsp; <label for="tipo_despesa5" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa5"> Despesa</label><br>
-                                            <b>Categoria:</b>
-                                            <select name="cat">
-                                                <option value="1">Condominio</option>
-                                                <option value="2">Energia</option>
-                                                <option value="3">Internet</option>
-                                                <option value="4">Mercado</option>
-                                                <option selected="" value="5">Farmacia</option>
-                                                <option value="6">Salario</option>
-                                                <option value="7">Dentista</option>
-                                            </select><br>
-                                            <b>Valor:</b> R$<input type="text" value="116.42" name="valor" size="8" maxlength="10">
-                                            <br>
-                                            <b>Descricao:</b> <input type="text" name="descricao" value="Remedios e Oleos" size="70" maxlength="255">
-
-                                            <input type="submit" class="input" value="Alterar">
-                                        </form>
-                                        <div style="text-align: right">
-                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=5" title="Remover">[remover]</a>
-                                        </div>
-                                        <hr>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="text-center">11</td>
-                                    <td>FJMC <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=6">Salario</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_2');" title="Editar">[editar]</a></td>
-                                    <td class="text-right"><strong class="text-entrada">+R$ 60,00</strong></td>
-                                </tr>
-                                <tr class="d-none" id="editar_mov_2">
-                                    <td colspan="3">
-                                        <hr>
-                                        <form method="post" action="?mes=1&amp;ano=2021">
-                                            <input type="hidden" name="acao" value="editar_mov">
-                                            <input type="hidden" name="id" value="2">
-
-                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="11"><br>
-                                            <b>Tipo:</b> <label for="tipo_receita2" class="text-entrada"><input checked="checked" type="radio" name="tipo" value="1" id="tipo_receita2"> Receita</label>&nbsp; <label for="tipo_despesa2" class="text-saida"><input type="radio" name="tipo" value="0" id="tipo_despesa2"> Despesa</label><br>
-                                            <b>Categoria:</b>
-                                            <select name="cat">
-                                                <option value="1">Condominio</option>
-                                                <option value="2">Energia</option>
-                                                <option value="3">Internet</option>
-                                                <option value="4">Mercado</option>
-                                                <option value="5">Farmacia</option>
-                                                <option selected="" value="6">Salario</option>
-                                                <option value="7">Dentista</option>
-                                            </select><br>
-                                            <b>Valor:</b> R$<input type="text" value="60" name="valor" size="8" maxlength="10">
-                                            <br>
-                                            <b>Descricao:</b> <input type="text" name="descricao" value="FJMC" size="70" maxlength="255">
-
-                                            <input type="submit" class="input" value="Alterar">
-                                        </form>
-                                        <div style="text-align: right">
-                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=2" title="Remover">[remover]</a>
-                                        </div>
-                                        <hr>
-                                    </td>
-                                </tr>
-
-                                <tr style="background-color:#F1F1F1">
-                                    <td class="text-center">12</td>
-                                    <td>aa <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=1">Condominio</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_6');" title="Editar">[editar]</a></td>
-                                    <td class="text-right"><strong class="text-saida">-R$ 4300,00</strong></td>
-                                </tr>
-                                <tr class="d-none" style="background-color:#F1F1F1" id="editar_mov_6">
-                                    <td colspan="3">
-                                        <hr>
-                                        <form method="post" action="?mes=1&amp;ano=2021">
-                                            <input type="hidden" name="acao" value="editar_mov">
-                                            <input type="hidden" name="id" value="6">
-
-                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="12"><br>
-                                            <b>Tipo:</b> <label for="tipo_receita6" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita6"> Receita</label>&nbsp; <label for="tipo_despesa6" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa6"> Despesa</label><br>
-                                            <b>Categoria:</b>
-                                            <select name="cat">
-                                                <option selected="" value="1">Condominio</option>
-                                                <option value="2">Energia</option>
-                                                <option value="3">Internet</option>
-                                                <option value="4">Mercado</option>
-                                                <option value="5">Farmacia</option>
-                                                <option value="6">Salario</option>
-                                                <option value="7">Dentista</option>
-                                            </select><br>
-                                            <b>Valor:</b> R$<input type="text" value="4300" name="valor" size="8" maxlength="10">
-                                            <br>
-                                            <b>Descricao:</b> <input type="text" name="descricao" value="aa" size="70" maxlength="255">
-
-                                            <input type="submit" class="input" value="Alterar">
-                                        </form>
-                                        <div style="text-align: right">
-                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=6" title="Remover">[remover]</a>
-                                        </div>
-                                        <hr>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td colspan="3" class="text-right">
-                                        <strong style="font-size:22px; color:#C00">R$ -102,70</strong>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                            foreach ($movs as $i => $value)
+                            {
+                                if ($value['type']) {
+                                    $txt = "text-entrada";
+                                    $sgn = "+R$ ";
+                                } else {
+                                    $txt = "text-saida";
+                                    $sgn = "-R$ ";
+                                }
+            ?>
+                                    <tr>
+                                        <td class="text-center"><?= $value['id'] ?></td>
+                                        <td class=""><?= $value['descrip'] ?></td>
+                                        <td class=""><?= $value['category'] ?></td>
+                                        <td class="text-right <?= $txt ?>"><?= $sgn . number_format($value['value'], 2, ',', '.'); ?></td>
+                                        <td class="text-center d-flex justify-content-center pt-0">
+                                            <button class="btn btn-link text-primary btn-edit p-1" data-id="">
+                                                <i class="bi bi-pencil-square align-middle mb-5"></i>
+                                            </button>
+                                            <button class="btn btn-link text-danger btn-del p-1" data-id="">
+                                                <i class="bi bi-trash align-middle mb-5"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+            <?php
+                            }
+            ?>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                 </div>
             </div>
 
-            <!-- FEVEREIRO -->
-            <div id="m2" class="tab-pane p-3 bg-f9">
-                <div class="row">
+            <?php
+                        }
+                    }
+                }
+            ?>
 
-                    <!-- Titulo e btn Movimento -->
-                    <div class="col-12">
-                        <div class="justify-content-between">
-                            <p class="h4 mb-0 float-left">Fevereiro/21</p>
-                            <button id="new_category" type="button" class="btn btn-primary btn-sm float-right">Novo movimento</button>
-                        </div>
-                    </div>
-
-                    <!-- Tabela do mês atual -->
-                    <div class="col-12 mt-3 bg-mesAtual">
-                        <div class="d-flex justify-content-between">
-                            <p class="small mt-3 mb-2 "><strong>Entradas e Saídas deste mês</strong></p>
-
-                            <a id="btnMesAtual" class="text-dark " data-toggle="collapse" href="#table-mesAtual-fev" role="button" aria-expanded="true" aria-controls="table-mesAtual-fev">
-                                <i class="bi bi-arrow-up-square" style="font-size: 1.5rem;"></i>
-                            </a>
-                        </div>
-
-                        <table id="table-mesAtual-fev" class="table table-borderless table-mesAtual collapse show" width="100%">
-                            <tbody>
-                                <tr>
-                                    <td class="text-left py-0">
-                                        <span class="text-entrada">Entradas:</span>
-                                    </td>
-                                    <td class="text-right py-0">
-                                        <span class="text-entrada">R$ 4360,00</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left py-0">
-                                        <span class="text-saida">Saídas:</span>
-                                    </td>
-                                    <td class="text-right py-0">
-                                        <span class="text-saida">R$ 4462,70</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="py-0" colspan="2">
-                                        <hr>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left py-0">
-                                        <strong class="text-saida">Total:</strong>
-                                    </td>
-                                    <td class="text-right py-0">
-                                        <strong class="text-saida">R$ -102,70</strong>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
-
-                    <!-- Tabela geral -->
-                    <div class="col-12 my-3 bg-balanco">
-                        <div class="d-flex justify-content-between">
-                            <p class="small mt-3 mb-2"><strong>Balanço geral</strong></p>
-
-                            <a id="btnBalancoGeral" class="text-dark " data-toggle="collapse" href="#table-balanco-fev" role="button" aria-expanded="false" aria-controls="table-balanco-fev">
-                                <i class="bi bi-arrow-down-square " style="font-size: 1.5rem;"></i>
-                            </a>
-
-                        </div>
-
-                        <table id="table-balanco-fev" class="table table-borderless table-balanco collapse" >
-                            <tbody>
-                                <tr>
-                                    <td class="text-left py-0">
-                                        <span class="text-entrada">Entradas:</span>
-                                    </td>
-                                    <td class="text-right py-0">
-                                        <span class="text-entrada">R$ 4360,00</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left py-0">
-                                        <span class="text-saida">Saídas:</span>
-                                    </td>
-                                    <td class="text-right py-0">
-                                        <span class="text-saida">R$ 5360,00</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="py-0" colspan="2">
-                                        <hr>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left py-0">
-                                        <strong class="text-saida">Total:</strong>
-                                    </td>
-                                    <td class="text-right py-0">
-                                        <strong class="text-saida">R$ 1000,00</strong>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Tabela movimentos -->
-                    <div class="col-12 mt-0 bg-balanco">
-                        <div class="d-flex justify-content-between">
-                            <p class="small mt-3 mb-2 "><strong>Movimentos deste mês</strong></p>
-
-                            <form class="form-inline " name="form_filtro_cat" method="get" action="">
-                                <input type="hidden" name="mes" value="1">
-                                <input type="hidden" name="ano" value="2021">
-                                <select id="filter_category" class="form-control form-sm" name="filtro_cat" onchange="form_filtro_cat.submit()">
-                                    <option value="">Tudo</option>
-                                    <option value="6">Salario</option>
-                                    <option value="4">Mercado</option>
-                                    <option value="5">Farmacia</option>
-                                    <option value="1">Condominio</option>
-                                </select>
-                            </form>
-                        </div>
-
-                        <table id="tableMovimento" class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">#</th>
-                                    <th class="">Descrição (Categoria)</th>
-                                    <th class="text-right">Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="text-center">4</td>
-                                    <td class="">
-                                        TDW
-                                        <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=6">Salario</a>)</em>
-                                        <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_1');" title="Editar">[editar]</a>
-                                    </td>
-                                    <td class="text-right">
-                                        <strong class="text-entrada">+R$ 4300,00</strong>
-                                    </td>
-                                </tr>
-                                <tr class="d-none" id="editar_mov_1">
-                                    <td colspan="3">
-                                        <form class="" method="post" action="?mes=1&amp;ano=2021">
-                                            <input type="hidden" name="acao" value="editar_mov">
-                                            <input type="hidden" name="id" value="1">
-
-
-                                            <div class="form-group">
-                                                <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="4">
-                                            </div>
-                                            <div class="form-group">
-                                                <b>Tipo:</b> <label for="tipo_receita1" class="text-entrada"><input checked="checked" type="radio" name="tipo" value="1" id="tipo_receita1"> Receita</label>&nbsp; <label for="tipo_despesa1" class="text-saida"><input type="radio" name="tipo" value="0" id="tipo_despesa1"> Despesa</label>
-                                            </div>
-                                            <div class="form-group">
-                                                <b>Categoria:</b>
-                                                <select name="cat">
-                                                    <option value="1">Condominio</option>
-                                                    <option value="2">Energia</option>
-                                                    <option value="3">Internet</option>
-                                                    <option value="4">Mercado</option>
-                                                    <option value="5">Farmacia</option>
-                                                    <option selected="" value="6">Salario</option>
-                                                    <option value="7">Dentista</option>
-                                                </select><br>
-                                            </div>
-                                            <div class="form-group">
-                                                <b>Valor:</b> R$<input type="text" value="4300" name="valor" size="8" maxlength="10">
-                                                <br>
-                                            </div>
-                                            <div class="form-group">
-                                                <b>Descricao:</b> <input type="text" name="descricao" value="TDW" maxlength="255">
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="submit" class="input" value="Alterar">
-                                                <a class="float-right" style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=1" title="Remover">[remover]</a>
-                                            </div>
-                                        </form>
-                                    </td>
-                                </tr>
-
-                                <tr style="background-color:#F1F1F1">
-                                    <td class="text-center">5</td>
-                                    <td>Mercadinho <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=4">Mercado</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_3');" title="Editar">[editar]</a></td>
-                                    <td class="text-right"><strong class="text-saida">-R$ 30,77</strong></td>
-                                </tr>
-                                <tr class="d-none" style="background-color:#F1F1F1" id="editar_mov_3">
-                                    <td colspan="3">
-                                        <hr>
-                                        <form method="post" action="?mes=1&amp;ano=2021">
-                                            <input type="hidden" name="acao" value="editar_mov">
-                                            <input type="hidden" name="id" value="3">
-
-                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="5"><br>
-                                            <b>Tipo:</b> <label for="tipo_receita3" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita3"> Receita</label>&nbsp; <label for="tipo_despesa3" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa3"> Despesa</label><br>
-                                            <b>Categoria:</b>
-                                            <select name="cat">
-                                                <option value="1">Condominio</option>
-                                                <option value="2">Energia</option>
-                                                <option value="3">Internet</option>
-                                                <option selected="" value="4">Mercado</option>
-                                                <option value="5">Farmacia</option>
-                                                <option value="6">Salario</option>
-                                                <option value="7">Dentista</option>
-                                            </select><br>
-                                            <b>Valor:</b> R$<input type="text" value="30.77" name="valor" size="8" maxlength="10">
-                                            <br>
-                                            <b>Descricao:</b> <input type="text" name="descricao" value="Mercadinho" size="70" maxlength="255">
-
-                                            <input type="submit" class="input" value="Alterar">
-                                        </form>
-                                        <div style="text-align: right">
-                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=3" title="Remover">[remover]</a>
-                                        </div>
-                                        <hr>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="text-center">7</td>
-                                    <td>Utensilios <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=4">Mercado</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_4');" title="Editar">[editar]</a></td>
-                                    <td class="text-right"><strong class="text-saida">-R$ 15,51</strong></td>
-                                </tr>
-                                <tr class="d-none" id="editar_mov_4">
-                                    <td colspan="3">
-                                        <hr>
-                                        <form method="post" action="?mes=1&amp;ano=2021">
-                                            <input type="hidden" name="acao" value="editar_mov">
-                                            <input type="hidden" name="id" value="4">
-
-                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="7"><br>
-                                            <b>Tipo:</b> <label for="tipo_receita4" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita4"> Receita</label>&nbsp; <label for="tipo_despesa4" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa4"> Despesa</label><br>
-                                            <b>Categoria:</b>
-                                            <select name="cat">
-                                                <option value="1">Condominio</option>
-                                                <option value="2">Energia</option>
-                                                <option value="3">Internet</option>
-                                                <option selected="" value="4">Mercado</option>
-                                                <option value="5">Farmacia</option>
-                                                <option value="6">Salario</option>
-                                                <option value="7">Dentista</option>
-                                            </select><br>
-                                            <b>Valor:</b> R$<input type="text" value="15.51" name="valor" size="8" maxlength="10">
-                                            <br>
-                                            <b>Descricao:</b> <input type="text" name="descricao" value="Utensilios" size="70" maxlength="255">
-
-                                            <input type="submit" class="input" value="Alterar">
-                                        </form>
-                                        <div style="text-align: right">
-                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=4" title="Remover">[remover]</a>
-                                        </div>
-                                        <hr>
-                                    </td>
-                                </tr>
-
-                                <tr style="background-color:#F1F1F1">
-                                    <td class="text-center">10</td>
-                                    <td>Remedios e Oleos <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=5">Farmacia</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_5');" title="Editar">[editar]</a></td>
-                                    <td class="text-right"><strong class="text-saida">-R$ 116,42</strong></td>
-                                </tr>
-                                <tr class="d-none" style="background-color:#F1F1F1" id="editar_mov_5">
-                                    <td colspan="3">
-                                        <hr>
-                                        <form method="post" action="?mes=1&amp;ano=2021">
-                                            <input type="hidden" name="acao" value="editar_mov">
-                                            <input type="hidden" name="id" value="5">
-
-                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="10"><br>
-                                            <b>Tipo:</b> <label for="tipo_receita5" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita5"> Receita</label>&nbsp; <label for="tipo_despesa5" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa5"> Despesa</label><br>
-                                            <b>Categoria:</b>
-                                            <select name="cat">
-                                                <option value="1">Condominio</option>
-                                                <option value="2">Energia</option>
-                                                <option value="3">Internet</option>
-                                                <option value="4">Mercado</option>
-                                                <option selected="" value="5">Farmacia</option>
-                                                <option value="6">Salario</option>
-                                                <option value="7">Dentista</option>
-                                            </select><br>
-                                            <b>Valor:</b> R$<input type="text" value="116.42" name="valor" size="8" maxlength="10">
-                                            <br>
-                                            <b>Descricao:</b> <input type="text" name="descricao" value="Remedios e Oleos" size="70" maxlength="255">
-
-                                            <input type="submit" class="input" value="Alterar">
-                                        </form>
-                                        <div style="text-align: right">
-                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=5" title="Remover">[remover]</a>
-                                        </div>
-                                        <hr>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="text-center">11</td>
-                                    <td>FJMC <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=6">Salario</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_2');" title="Editar">[editar]</a></td>
-                                    <td class="text-right"><strong class="text-entrada">+R$ 60,00</strong></td>
-                                </tr>
-                                <tr class="d-none" id="editar_mov_2">
-                                    <td colspan="3">
-                                        <hr>
-                                        <form method="post" action="?mes=1&amp;ano=2021">
-                                            <input type="hidden" name="acao" value="editar_mov">
-                                            <input type="hidden" name="id" value="2">
-
-                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="11"><br>
-                                            <b>Tipo:</b> <label for="tipo_receita2" class="text-entrada"><input checked="checked" type="radio" name="tipo" value="1" id="tipo_receita2"> Receita</label>&nbsp; <label for="tipo_despesa2" class="text-saida"><input type="radio" name="tipo" value="0" id="tipo_despesa2"> Despesa</label><br>
-                                            <b>Categoria:</b>
-                                            <select name="cat">
-                                                <option value="1">Condominio</option>
-                                                <option value="2">Energia</option>
-                                                <option value="3">Internet</option>
-                                                <option value="4">Mercado</option>
-                                                <option value="5">Farmacia</option>
-                                                <option selected="" value="6">Salario</option>
-                                                <option value="7">Dentista</option>
-                                            </select><br>
-                                            <b>Valor:</b> R$<input type="text" value="60" name="valor" size="8" maxlength="10">
-                                            <br>
-                                            <b>Descricao:</b> <input type="text" name="descricao" value="FJMC" size="70" maxlength="255">
-
-                                            <input type="submit" class="input" value="Alterar">
-                                        </form>
-                                        <div style="text-align: right">
-                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=2" title="Remover">[remover]</a>
-                                        </div>
-                                        <hr>
-                                    </td>
-                                </tr>
-
-                                <tr style="background-color:#F1F1F1">
-                                    <td class="text-center">12</td>
-                                    <td>aa <em>(<a href="?mes=1&amp;ano=2021&amp;filtro_cat=1">Condominio</a>)</em> <a href="javascript:;" style="font-size:10px; color:#666" onclick="editFunc('editar_mov_6');" title="Editar">[editar]</a></td>
-                                    <td class="text-right"><strong class="text-saida">-R$ 4300,00</strong></td>
-                                </tr>
-                                <tr class="d-none" style="background-color:#F1F1F1" id="editar_mov_6">
-                                    <td colspan="3">
-                                        <hr>
-                                        <form method="post" action="?mes=1&amp;ano=2021">
-                                            <input type="hidden" name="acao" value="editar_mov">
-                                            <input type="hidden" name="id" value="6">
-
-                                            <b>Dia:</b> <input type="text" name="dia" size="3" maxlength="2" value="12"><br>
-                                            <b>Tipo:</b> <label for="tipo_receita6" class="text-entrada"><input type="radio" name="tipo" value="1" id="tipo_receita6"> Receita</label>&nbsp; <label for="tipo_despesa6" class="text-saida"><input checked="checked" type="radio" name="tipo" value="0" id="tipo_despesa6"> Despesa</label><br>
-                                            <b>Categoria:</b>
-                                            <select name="cat">
-                                                <option selected="" value="1">Condominio</option>
-                                                <option value="2">Energia</option>
-                                                <option value="3">Internet</option>
-                                                <option value="4">Mercado</option>
-                                                <option value="5">Farmacia</option>
-                                                <option value="6">Salario</option>
-                                                <option value="7">Dentista</option>
-                                            </select><br>
-                                            <b>Valor:</b> R$<input type="text" value="4300" name="valor" size="8" maxlength="10">
-                                            <br>
-                                            <b>Descricao:</b> <input type="text" name="descricao" value="aa" size="70" maxlength="255">
-
-                                            <input type="submit" class="input" value="Alterar">
-                                        </form>
-                                        <div style="text-align: right">
-                                            <a style="color:#FF0000" onclick="return confirm('Tem certeza que deseja apagar?')" href="?mes=1&amp;ano=2021&amp;acao=apagar&amp;id=6" title="Remover">[remover]</a>
-                                        </div>
-                                        <hr>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td colspan="3" class="text-right">
-                                        <strong style="font-size:22px; color:#C00">R$ -102,70</strong>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-            </div>
         </div>
 
     </div>
 
-    <footer id="footer" class="mt-3 py-3" >
+    <footer id="footer" class="py-3 bg-fa">
         <div class="container">
             <div class="row">
                 <div class="col text-center">
-                    <h6 class="mb-0" >&copy; <?=date('Y') ?> Finanças Família Costa</h6>
-                    <small class="mb-0" >Powered by <a href="https://www.linkedin.com/in/costamateus6/" target="_blank" rel="noopener noreferrer" >Mateus Costa</a></small>
+                    <h6 class="mb-0">&copy; <?= date('Y') ?> Finanças Família Costa</h6>
+                    <small class="mb-0">Powered by <a href="https://www.linkedin.com/in/costamateus6/" target="_blank" rel="noopener noreferrer">Mateus Costa</a></small>
                 </div>
             </div>
         </div>
@@ -957,14 +447,11 @@
         $("#search_year").select2();
         $("#filter_category").select2();
 
-        $(".nav-link").on('click', function() {
-            $('.nav-link').removeClass('active');
+        $(".btnMeses a").on('click', function() {
+            $('.btnMeses a').removeClass('active');
             $(this).addClass('active');
-
             $('.tab-pane').removeClass('active');
-
             $('#' + $(this).data('tab')).addClass('active');
-
         });
 
         let month_curr = <?= date('m'); ?>;
@@ -1016,6 +503,12 @@
 
         window.editFunc = function(id) {
             $('#' + id).toggleClass('d-none d-table-row');
+        }
+
+        window.onload = function() {
+            $('.tab-pane').removeClass('active');
+            $('#month_' + month_curr).addClass('active');
+            $('#m' + month_curr).addClass('active');
         }
     </script>
 </body>
