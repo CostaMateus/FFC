@@ -1,0 +1,126 @@
+{
+    "2021" : {
+        "1" : [
+            {
+                "id"       : "1",
+                "descrip"  : "TDW",
+                "category" : "Salario",
+                "value"    : "4300",
+                "type"     : 1,
+                "date"     : "04/01/2021"
+            },
+            {
+                "id"       : "2",
+                "descrip"  : "Condominio",
+                "category" : "Condominio",
+                "value"    : "2000",
+                "type"     : 0,
+                "date"     : "10/01/2021"
+            },
+            {
+                "id"       : "3",
+                "descrip"  : "Dentista",
+                "category" : "Saude",
+                "value"    : "350",
+                "type"     : 0,
+                "date"     : "10/01/2021"
+            },
+            {
+                "id"       : "4",
+                "descrip"  : "Dia%",
+                "category" : "Mercado",
+                "value"    : "2000",
+                "type"     : 0,
+                "date"     : "10/01/2021"
+            }
+        ],
+        "2" : [
+            {
+                "id"       : "1",
+                "descrip"  : "TDW",
+                "category" : "Salario",
+                "value"    : "4300",
+                "type"     : 1,
+                "date"     : "10/02/2021"
+            },
+            {
+                "id"       : "2",
+                "descrip"  : "Condominio",
+                "category" : "Condominio",
+                "value"    : "2000",
+                "type"     : 0,
+                "date"     : "20/02/2021"
+            },
+            {
+                "id"       : "3",
+                "descrip"  : "Mercado",
+                "category" : "Mercado",
+                "value"    : "2000",
+                "type"     : 0,
+                "date"     : "30/02/2021"
+            }
+        ]
+    },
+    "2022" : {
+        "1" : [
+            {
+                "id"       : "1",
+                "descrip"  : "TDW",
+                "category" : "Salario",
+                "value"    : "4300",
+                "type"     : 1,
+                "date"     : "04/01/2022"
+            },
+            {
+                "id"       : "2",
+                "descrip"  : "Condominio",
+                "category" : "Condominio",
+                "value"    : "2000",
+                "type"     : 0,
+                "date"     : "10/01/2022"
+            },
+            {
+                "id"       : "3",
+                "descrip"  : "Dentista",
+                "category" : "Saude",
+                "value"    : "350",
+                "type"     : 0,
+                "date"     : "10/01/2022"
+            },
+            {
+                "id"       : "4",
+                "descrip"  : "Mercado",
+                "category" : "Mercado",
+                "value"    : "2000",
+                "type"     : 0,
+                "date"     : "10/01/2022"
+            }
+        ],
+        "2" : [
+            {
+                "id"       : "1",
+                "descrip"  : "TDW",
+                "category" : "Salario",
+                "value"    : "4300",
+                "type"     : 1,
+                "date"     : "10/02/2022"
+            },
+            {
+                "id"       : "2",
+                "descrip"  : "Condominio",
+                "category" : "Condominio",
+                "value"    : "2000",
+                "type"     : 0,
+                "date"     : "20/02/2022"
+            },
+            {
+                "id"       : "3",
+                "descrip"  : "Mercado",
+                "category" : "Mercado",
+                "value"    : "2000",
+                "type"     : 0,
+                "date"     : "30/02/2022"
+            }
+        ]
+    }
+}
