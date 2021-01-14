@@ -75,7 +75,7 @@ $data = json_decode($str, true);
                     </div>
 
                     <div class="form-group col my-auto">
-                        <button id="new_category" type="button" onclick="newCategory()" class="btn btn-light btn-sm float-right">Nova categoria</button>
+                        <button id="new-category-btn" type="button" class="btn btn-light btn-sm float-right ">Nova categoria</button>
                     </div>
                 </div>
 
@@ -163,7 +163,7 @@ $data = json_decode($str, true);
                             <div class="row ">
                                 <div class="col justify-content-between px-0">
                                     <p class="h4 mb-0 float-left"><?= formatDate($key, $year); ?></p>
-                                    <button id="new_category" type="button" onclick="newMoviment()" class="btn btn-secondary btn-sm float-right">Novo movimento</button>
+                                    <button id="new-movement-btn" type="button" class="btn btn-secondary btn-sm float-right">Novo movimento</button>
                                 </div>
                             </div>
 
@@ -313,6 +313,112 @@ $data = json_decode($str, true);
         </div>
     </footer>
 
+    <div id="new-category" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="new-category-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="new-category-title" class="modal-title">Nova categoria</h5>
+                    <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="new-category-form" action="" method="">
+                        <!-- @csrf -->
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="name" class="text-muted">Insira uma nome</label>
+                                    <input type="text" id="name" class="form-control form-control-sm" name="name">
+                                    <span id="span_name" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 ml-auto">
+                                <button type="submit" class="btn btn-success btn-sm btn-block">Salvar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="new-movement" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="new-movement-title" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="new-movement-title" class="modal-title">Novo movimento</h5>
+                    <button type="button" class="close my-auto py-0" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="new-movement-form" action="" method="">
+                        <!-- @csrf -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="date" class="text-muted">Data</label>
+                                    <input type="text" id="date" class="form-control form-control-sm" name="date">
+                                    <span id="span_date" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="" class="text-muted">Tipo</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="type" id="receita" value="1" >
+                                    <label class="form-check-label text-entrada" for="receita">
+                                        Receita
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="radio" name="type" id="despesa" value="0" >
+                                    <label class="form-check-label text-saida" for="despesa">
+                                        Despesa
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12 ">
+                                <div class="form-group">
+                                    <label for="category_id" class="text-muted">Categoria</label>
+                                    <select id="category_id" class="form-control form-control-sm" name="category_id" style="width: 100%">
+                                        <option value="" selected disabled>Selecione...</option>
+                                        <option value="1">A</option>
+                                        <option value="2">B</option>
+                                        <option value="3">C</option>
+                                    </select>
+                                    <span id="span_category_id" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="description" class="text-muted">Descrição</label>
+                                    <input type="text" id="description" class="form-control form-control-sm" name="description">
+                                    <span id="span_description" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="value" class="text-muted">Valor (R$)</label>
+                                    <input type="text" id="value" class="form-control form-control-sm" name="value">
+                                    <span id="span_value" class="invalid-feedback"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 ml-auto">
+                                <button type="submit" class="btn btn-success btn-sm btn-block">Salvar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -325,8 +431,11 @@ $data = json_decode($str, true);
     <!-- Date range picker -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <!-- jQuery Mask -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script>
 
     <script src="includes/functions.js"></script>
+
     <!-- Custom JS -->
     <script>
         let month_curr = <?= date('m'); ?>;
@@ -369,59 +478,53 @@ $data = json_decode($str, true);
                 break;
         }
 
-        function newCategory() {
+        $(document).on('click', '#new-category-btn', function() {
+            $('#new-category').modal('show');
+        });
+        $('#new-category-form').on('submit', function(e) {
+            e.preventDefault();
+            console.log( $('#new-category-form').serializeArray() );
             Swal.fire({
-                title: 'Adicionar categoria',
-                html: `<input type="text" id="name" class="swal2-input" placeholder="Nome">`,
-                confirmButtonText: 'Salvar',
-                focusConfirm: false,
-                preConfirm: () => {
-                    const name = Swal.getPopup().querySelector('#name').value;
-                    if (!name) {
-                        Swal.showValidationMessage(`Insira um nome para a categoria`)
-                    }
-                    return {
-                        name: name,
-                    }
-                }
-            }).then((result) => {
-                // Swal.fire(`Nome: ${result.value.name}`.trim())
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Categoria adicionada!',
-                    timer: 4000,
-                    showConfirmButton: false
-                }).then(function() {
-                    window.location.reload();
-                });
+                position: 'center',
+                icon: 'success',
+                title: 'Categoria adicionada!',
+                timer: 4000,
+                showConfirmButton: false
+            }).then(function() {
+                window.location.reload();
             });
-        }
+        });
 
-        function newMoviment() {
+
+        $(document).on('click', '#new-movement-btn', function() {
+            $('#date').daterangepicker({
+                "singleDatePicker": true,
+                "showDropdowns": true,
+                "minYear": 2021,
+                "maxYear": 2025,
+                "autoApply": true,
+                "linkedCalendars": false,
+                "showCustomRangeLabel": false,
+                "startDate": Date.now()
+            }, function(start, end, label) {
+                console.log('New date range selected: ' + start.format('YYYY-MM-DD') );
+            });
+            $('#new-movement').modal('show');
+        });
+        $('#new-movement-form').on('submit', function(e) {
+            e.preventDefault();
+            console.log( $('#new-movement-form').serializeArray() );
             Swal.fire({
-                title: 'Date picker',
-                html: '<input id="datepicker">',
-                showConfirmButton: false,
-                customClass: 'swal2-overflow',
-                onOpen: function() {
-                    $('#datepicker').daterangepicker({
-                        "singleDatePicker": true,
-                        "showDropdowns": true,
-                        "minYear": 2021,
-                        "maxYear": 2025,
-                        "autoApply": true,
-                        "linkedCalendars": false,
-                        "showCustomRangeLabel": false,
-                        "startDate": Date.now()
-                    }, function(start, end, label) {
-                        console.log('New date range selected: ' + start.format('YYYY-MM-DD') );
-                    });
-                },
-            }).then(function(result) {
-
+                position: 'center',
+                icon: 'success',
+                title: 'Movimento adicionado!',
+                timer: 4000,
+                showConfirmButton: false
+            }).then(function() {
+                window.location.reload();
             });
-        }
+        });
+
     </script>
 </body>
 

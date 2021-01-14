@@ -1,6 +1,9 @@
 
 $("#search_year").select2();
 $("#filter_category").select2();
+$("#category_id").select2();
+
+$('#value').mask("#.##0,00", {reverse: true});
 
 $(".btnMeses a").on('click', function () {
     $('.btnMeses a').removeClass('active');
