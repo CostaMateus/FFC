@@ -126,15 +126,19 @@ $data = json_decode($str, true);
         <hr>
         <div class="tab-content clearfix">
 
-            <?php
-            foreach ($data as $year => $months) {
-                if ($year == '2021') {
-                    foreach ($months as $key => $movs) {
+        <?php
+            foreach ($data as $year => $months)
+            {
+                if ($year == '2021')
+                {
+                    foreach ($months as $key => $movs)
+                    {
                         $mes_ent = 0;
                         $mes_sai = 0;
                         $mes_ttl = 0;
 
-                        foreach ($movs as $i => $value) {
+                        foreach ($movs as $i => $value)
+                        {
                             if ($value['type']) {
                                 $mes_ent += $value['value'];
                             } else {
@@ -143,7 +147,6 @@ $data = json_decode($str, true);
                         }
 
                         $mes_ttl = ($mes_ent - $mes_sai);
-
 
                         if ($mes_ttl > 0) {
                             $txt = "text-entrada";
@@ -156,147 +159,148 @@ $data = json_decode($str, true);
                             $txt = "";
                             $sgn = "R$ ";
                         }
-            ?>
-                        <!-- MES <?= $key; ?> -->
-                        <div id="m<?= $key; ?>" class="tab-pane px-3 pb-0 active">
-                            <!-- Titulo e btn Movimento -->
-                            <div class="row ">
-                                <div class="col justify-content-between px-0">
-                                    <p class="h4 mb-0 float-left"><?= formatDate($key, $year); ?></p>
-                                    <button id="new-movement-btn" type="button" class="btn btn-secondary btn-sm float-right">Novo movimento</button>
-                                </div>
-                            </div>
+        ?>
+            <!-- MES <?= $key; ?> -->
+            <div id="m<?= $key; ?>" class="tab-pane px-3 pb-0 active">
+                <!-- Titulo e btn Movimento -->
+                <div class="row ">
+                    <div class="col justify-content-between px-0">
+                        <p class="h4 mb-0 float-left"><?= formatDate($key, $year); ?></p>
+                        <button id="new-movement-btn" type="button" class="btn btn-secondary btn-sm float-right">Novo movimento</button>
+                    </div>
+                </div>
 
-                            <!-- Tabela do mês atual -->
-                            <div class="row">
-                                <div class="col-12 mt-3 bg-mesAtual">
-                                    <div class="d-flex justify-content-between">
-                                        <p class="small mt-3 mb-2 ">Entradas e saídas deste mês</p>
+                <!-- Tabela do mês atual -->
+                <div class="row">
+                    <div class="col-12 mt-3 bg-mesAtual">
+                        <div class="d-flex justify-content-between">
+                            <p class="small mt-3 mb-2 ">Entradas e saídas deste mês</p>
 
-                                        <a id="btnMesAtual" class="text-dark " data-toggle="collapse" href="#table-mesAtual-jan" role="button" aria-expanded="true" aria-controls="table-mesAtual-jan">
-                                            <i class="bi bi-arrow-up-square" style="font-size: 1.5rem;"></i>
-                                        </a>
-                                    </div>
+                            <a id="btnMesAtual" class="text-dark " data-toggle="collapse" href="#table-mesAtual-jan" role="button" aria-expanded="true" aria-controls="table-mesAtual-jan">
+                                <i class="bi bi-arrow-up-square" style="font-size: 1.5rem;"></i>
+                            </a>
+                        </div>
 
-                                    <table id="table-mesAtual-jan" class="table table-borderless table-mesAtual collapse show">
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-left py-0 text-entrada">Entradas:</td>
-                                                <td class="text-right py-0 text-entrada"><?= $sgn . number_format($mes_ent, 2, ',', '.'); ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-left py-0 text-saida">Saídas:</td>
-                                                <td class="text-right py-0 text-saida"><?= $sgn . number_format($mes_sai, 2, ',', '.'); ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="py-0" colspan="2">
-                                                    <hr>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-left py-0 <?= $txt ?>">Total:</td>
-                                                <td class="text-right py-0 <?= $txt ?>"><?= $sgn . number_format($mes_ttl, 2, ',', '.'); ?></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        <table id="table-mesAtual-jan" class="table table-borderless table-mesAtual collapse show">
+                            <tbody>
+                                <tr>
+                                    <td class="text-left py-0 text-entrada">Entradas:</td>
+                                    <td class="text-right py-0 text-entrada"><?= $sgn . number_format($mes_ent, 2, ',', '.'); ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left py-0 text-saida">Saídas:</td>
+                                    <td class="text-right py-0 text-saida"><?= $sgn . number_format($mes_sai, 2, ',', '.'); ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="py-0" colspan="2">
+                                        <hr>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left py-0 <?= $txt ?>">Total:</td>
+                                    <td class="text-right py-0 <?= $txt ?>"><?= $sgn . number_format($mes_ttl, 2, ',', '.'); ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
-                            <!-- Tabela geral -->
-                            <div class="row">
-                                <div class="col-12 my-3 bg-balanco">
-                                    <div class="d-flex justify-content-between">
-                                        <p class="small mt-3 mb-2">Balanço geral</p>
+                <!-- Tabela geral -->
+                <div class="row">
+                    <div class="col-12 my-3 bg-balanco">
+                        <div class="d-flex justify-content-between">
+                            <p class="small mt-3 mb-2">Balanço geral</p>
 
-                                        <a id="btnBalancoGeral" class="text-dark " data-toggle="collapse" href="#table-balanco-jan" role="button" aria-expanded="false" aria-controls="table-balanco-jan">
-                                            <i class="bi bi-arrow-down-square " style="font-size: 1.5rem;"></i>
-                                        </a>
-
-                                    </div>
-
-                                    <table id="table-balanco-jan" class="table table-borderless table-balanco collapse">
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-left py-0 text-entrada">Entradas:</td>
-                                                <td class="text-right py-0 text-entrada">R$ 0,00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-left py-0 text-saida">Saídas:</td>
-                                                <td class="text-right py-0 text-saida">R$ 0,00</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="py-0" colspan="2">
-                                                    <hr>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-left py-0 text-entrada">Total:</td>
-                                                <td class="text-right py-0 text-entrada">R$ 0,00</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <!-- Tabela movimentos -->
-                            <div class="row">
-                                <div class="col-12 mt-0 bg-balanco">
-                                    <div class="d-flex justify-content-between">
-                                        <p class="small mt-3 mb-2 ">Movimentos deste mês</p>
-                                    </div>
-                                    <div class="table-responsive">
-                                        <table id="tableMovimento_m<?= $key; ?>" class="table table-sm table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center">#</th>
-                                                    <th class="">Descrição</th>
-                                                    <th class="">Categoria</th>
-                                                    <th class="text-center vl">Valor</th>
-                                                    <th class="text-center">Ações</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $count = 1;
-                                                foreach ($movs as $i => $value) {
-                                                    if ($value['type']) {
-                                                        $txt = "text-entrada";
-                                                        $sgn = "+R$ ";
-                                                    } else {
-                                                        $txt = "text-saida";
-                                                        $sgn = "-R$ ";
-                                                    }
-                                                ?>
-                                                    <tr>
-                                                        <td class="text-center"><?= $count++ ?></td>
-                                                        <td class=""><?= $value['descrip'] ?></td>
-                                                        <td class=""><?= $value['category'] ?></td>
-                                                        <td class="text-right <?= $txt ?>"><?= $sgn . number_format($value['value'], 2, ',', '.'); ?></td>
-                                                        <td class="text-center d-flex justify-content-center pt-0">
-                                                            <button class="btn btn-link text-primary btn-edit p-1" data-id="<?= $value['id'] ?>">
-                                                                <i class="bi bi-pencil-square align-middle mb-5"></i>
-                                                            </button>
-                                                            <button class="btn btn-link text-danger btn-del p-1" data-id="<?= $value['id'] ?>">
-                                                                <i class="bi bi-trash align-middle mb-5"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                <?php
-                                                }
-                                                ?>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                            <a id="btnBalancoGeral" class="text-dark " data-toggle="collapse" href="#table-balanco-jan" role="button" aria-expanded="false" aria-controls="table-balanco-jan">
+                                <i class="bi bi-arrow-down-square " style="font-size: 1.5rem;"></i>
+                            </a>
 
                         </div>
 
-            <?php
+                        <table id="table-balanco-jan" class="table table-borderless table-balanco collapse">
+                            <tbody>
+                                <tr>
+                                    <td class="text-left py-0 text-entrada">Entradas:</td>
+                                    <td class="text-right py-0 text-entrada">R$ 0,00</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left py-0 text-saida">Saídas:</td>
+                                    <td class="text-right py-0 text-saida">R$ 0,00</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-0" colspan="2">
+                                        <hr>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="text-left py-0 text-entrada">Total:</td>
+                                    <td class="text-right py-0 text-entrada">R$ 0,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tabela movimentos -->
+                <div class="row">
+                    <div class="col-12 mt-0 bg-balanco">
+                        <div class="d-flex justify-content-between">
+                            <p class="small mt-3 mb-2 ">Movimentos deste mês</p>
+                        </div>
+                        <div class="table-responsive">
+                            <table id="tableMovimento_m<?= $key; ?>" class="table table-sm table-hover">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="">Descrição</th>
+                                        <th class="">Categoria</th>
+                                        <th class="text-center vl">Valor</th>
+                                        <th class="text-center">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+        <?php
+                        $count = 1;
+                        foreach ($movs as $i => $value)
+                        {
+                            if ($value['type']) {
+                                $txt = "text-entrada";
+                                $sgn = "+R$ ";
+                            } else {
+                                $txt = "text-saida";
+                                $sgn = "-R$ ";
+                            }
+        ?>
+                                    <tr>
+                                        <td class="text-center"><?= $count++ ?></td>
+                                        <td class=""><?= $value['descrip'] ?></td>
+                                        <td class=""><?= $value['category'] ?></td>
+                                        <td class="text-right <?= $txt ?>"><?= $sgn . number_format($value['value'], 2, ',', '.'); ?></td>
+                                        <td class="text-center d-flex justify-content-center pt-0">
+                                            <button class="btn btn-link text-primary btn-edit p-1" data-id="<?= $value['id'] ?>">
+                                                <i class="bi bi-pencil-square align-middle mb-5"></i>
+                                            </button>
+                                            <button class="btn btn-link text-danger btn-del p-1" data-id="<?= $value['id'] ?>">
+                                                <i class="bi bi-trash align-middle mb-5"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+        <?php
+                        }
+        ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        <?php
                     }
                 }
             }
-            ?>
+        ?>
 
         </div>
 

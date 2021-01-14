@@ -89,15 +89,25 @@ $('#new-category-form').on('submit', function(e) {
 $(document).on('click', '#new-movement-btn', function() {
     $('#date').daterangepicker({
         "singleDatePicker": true,
-        "showDropdowns": true,
-        "minYear": 2021,
-        "maxYear": 2025,
+        "showDropdowns"   : true,
+        "minYear"  : 2021,
         "autoApply": true,
-        "linkedCalendars": false,
-        "showCustomRangeLabel": false,
-        "startDate": Date.now()
-    }, function(start, end, label) {
-        console.log('New date range selected: ' + start.format('YYYY-MM-DD') );
+        "locale"   : {
+            "firstDay"  : 0,
+            "format"    : "DD/MM/YYYY",
+            "separator" : " - ",
+            "daysOfWeek": [
+                "D", "S", "T", "Q", "Q", "S", "S"
+            ],
+            "monthNames": [
+                "Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dec"
+            ],
+        },
+        "startDate": Date.now(),
+        "endDate"  : Date.now(),
+        "minDate"  : "01/01/2021"
+    }, function( start ) {
+        console.log( start.format('YYYY-MM-DD') );
     });
     $('#new-movement').modal('show');
 });
