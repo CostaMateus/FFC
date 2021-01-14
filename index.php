@@ -1,8 +1,8 @@
 <?php
 
-require_once('includes/functions.php');
+require_once('functions.php');
 
-$str  = file_get_contents('includes/data.json');
+$str  = file_get_contents('data.json');
 
 $data = json_decode($str, true);
 
@@ -434,7 +434,7 @@ $data = json_decode($str, true);
     <!-- jQuery Mask -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script>
 
-    <script src="includes/functions.js"></script>
+    <script src="functions.js"></script>
 
     <!-- Custom JS -->
     <script>
