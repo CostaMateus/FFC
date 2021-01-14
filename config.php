@@ -1,6 +1,6 @@
 <?php
 
-const PROD = true;
+const PROD = false;
 
 if ( PROD )
 {

@@ -37,7 +37,7 @@ $data = json_decode($str, true);
 
 
     <!-- Personal CSS -->
-    <link rel="stylesheet" href="<?= $path_root ?>assets/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="/assets/css/style.css" type="text/css" />
 
     <title>Finanças Família Costa - FFC</title>
 </head>
