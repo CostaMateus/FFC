@@ -1,0 +1,69 @@
+@media (max-width: 991.98px) {
+    .bd-navbar .navbar-nav-scroll {
+        max-width: 100%;
+        height: 2.5rem;
+        margin-top: .25rem;
+        overflow: hidden;
+    }
+    .bd-navbar .navbar-nav-scroll {
+        max-width: 100%;
+        height: 2.5rem;
+        margin-top: .25rem;
+        overflow: hidden;
+    }
+    .bd-navbar .navbar-nav-scroll .navbar-nav {
+        padding-bottom: 2rem;
+        overflow-x: auto;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+.table-mesAtual td span,
+.table-balanco td span {
+    font-size: 18px;
+}
+
+.text-entrada {
+    color: #030;
+}
+
+.text-saida {
+    color: #C00;
+}
+
+.bg-fa {
+    background-color: #FAFAFA;
+}
+
+.bg-mesAtual {
+    background-color: #F0FFF5;
+}
+
+.bg-balanco {
+    background-color: #F5F5F5;
+}
+
+.table>tbody>tr>td {
+    vertical-align: middle !important;
+}
+
+.btn-edit,
+.btn-del {
+    font-size: 1.25rem;
+}
+
+.btn-secondary {
+    background-color: #A6ACB1 !important;
+    border-color: #A6ACB1 !important;
+}
+
+.table-responsive tr th.vl {
+    min-width: 125px !important;
+}
+
+
+.swal2-overflow {
+    overflow-x: visible;
+    overflow-y: visible;
+}
