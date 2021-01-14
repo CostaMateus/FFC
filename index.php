@@ -1,9 +1,8 @@
 <?php
 
-require_once('config.php');
-require_once($path_root . 'includes/functions.php');
+require_once('includes/functions.php');
 
-$str  = file_get_contents($path_root . 'includes/data.json');
+$str  = file_get_contents('includes/data.json');
 
 $data = json_decode($str, true);
 
@@ -435,98 +434,10 @@ $data = json_decode($str, true);
     <!-- jQuery Mask -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script>
 
-    <script src="functions.js"></script>
+    <script src="/includes/functions.js"></script>
 
     <!-- Custom JS -->
-    <script>
-        let month_curr = <?= date('m'); ?>;
-        switch (month_curr) {
-            case 1:
-                $('#month_' + month_curr).addClass('active');
-                break;
-            case 2:
-                $('#month_' + month_curr).addClass('active');
-                break;
-            case 3:
-                $('#month_' + month_curr).addClass('active');
-                break;
-            case 4:
-                $('#month_' + month_curr).addClass('active');
-                break;
-            case 5:
-                $('#month_' + month_curr).addClass('active');
-                break;
-            case 6:
-                $('#month_' + month_curr).addClass('active');
-                break;
-            case 7:
-                $('#month_' + month_curr).addClass('active');
-                break;
-            case 8:
-                $('#month_' + month_curr).addClass('active');
-                break;
-            case 9:
-                $('#month_' + month_curr).addClass('active');
-                break;
-            case 10:
-                $('#month_' + month_curr).addClass('active');
-                break;
-            case 11:
-                $('#month_' + month_curr).addClass('active');
-                break;
-            case 12:
-                $('#month_' + month_curr).addClass('active');
-                break;
-        }
-
-        $(document).on('click', '#new-category-btn', function() {
-            $('#new-category').modal('show');
-        });
-        $('#new-category-form').on('submit', function(e) {
-            e.preventDefault();
-            console.log( $('#new-category-form').serializeArray() );
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Categoria adicionada!',
-                timer: 4000,
-                showConfirmButton: false
-            }).then(function() {
-                window.location.reload();
-            });
-        });
-
-
-        $(document).on('click', '#new-movement-btn', function() {
-            $('#date').daterangepicker({
-                "singleDatePicker": true,
-                "showDropdowns": true,
-                "minYear": 2021,
-                "maxYear": 2025,
-                "autoApply": true,
-                "linkedCalendars": false,
-                "showCustomRangeLabel": false,
-                "startDate": Date.now()
-            }, function(start, end, label) {
-                console.log('New date range selected: ' + start.format('YYYY-MM-DD') );
-            });
-            $('#new-movement').modal('show');
-        });
-        $('#new-movement-form').on('submit', function(e) {
-            e.preventDefault();
-            console.log( $('#new-movement-form').serializeArray() );
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Movimento adicionado!',
-                timer: 4000,
-                showConfirmButton: false
-            }).then(function() {
-                window.location.reload();
-            });
-        });
-
-    </script>
+    <script></script>
 </body>
 
 </html>
