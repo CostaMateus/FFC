@@ -1,47 +1,8 @@
 <?php
 
-function formatDate($m, $y) {
-    switch ($m) {
-        case 1:
-            return "JAN/" . substr($y, -2);
-            break;
-        case 2:
-            return "FEV/" . substr($y, -2);
-            break;
-        case 3:
-            return "MAR/" . substr($y, -2);
-            break;
-        case 4:
-            return "ABR/" . substr($y, -2);
-            break;
-        case 5:
-            return "MAI/" . substr($y, -2);
-            break;
-        case 6:
-            return "JUN/" . substr($y, -2);
-            break;
-        case 7:
-            return "JUL/" . substr($y, -2);
-            break;
-        case 8:
-            return "AGO/" . substr($y, -2);
-            break;
-        case 9:
-            return "SET/" . substr($y, -2);
-            break;
-        case 10:
-            return "OUT/" . substr($y, -2);
-            break;
-        case 11:
-            return "NOV/" . substr($y, -2);
-            break;
-        case 12:
-            return "DEZ/" . substr($y, -2);
-            break;
-    }
-}
+require_once('includes/functions.php');
 
-$str  = file_get_contents('data.json');
+$str  = file_get_contents('includes/data.json');
 
 $data = json_decode($str, true);
 
@@ -66,92 +27,18 @@ $data = json_decode($str, true);
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <!-- Bootstrap Table CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css">
     <!-- Bootstrap Icon -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <!-- Select 2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- Date range picker -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 
     <!-- Personal CSS -->
     <link rel="stylesheet" href="assets/css/style.css" type="text/css" />
 
     <title>Finanças Família Costa - FFC</title>
-
-    <style>
-        @media (max-width: 991.98px) {
-            .bd-navbar .navbar-nav-scroll {
-                max-width: 100%;
-                height: 2.5rem;
-                margin-top: .25rem;
-                overflow: hidden;
-            }
-
-            .bd-navbar .navbar-nav-scroll {
-                max-width: 100%;
-                height: 2.5rem;
-                margin-top: .25rem;
-                overflow: hidden;
-            }
-
-            .bd-navbar .navbar-nav-scroll .navbar-nav {
-                padding-bottom: 2rem;
-                overflow-x: auto;
-                white-space: nowrap;
-                -webkit-overflow-scrolling: touch;
-            }
-        }
-
-        .table-mesAtual td span,
-        .table-balanco td span {
-            font-size: 18px;
-        }
-
-        /* .table-mesAtual .text-entrada,
-        .table-mesAtual .text-saida,
-        .table-balanco .text-entrada,
-        .table-balanco .text-saida {
-            font-size: 22px;
-        } */
-
-        .text-entrada {
-            color: #030;
-        }
-
-        .text-saida {
-            color: #C00;
-        }
-
-        .bg-fa {
-            background-color: #FAFAFA;
-        }
-
-        .bg-mesAtual {
-            background-color: #F0FFF5;
-        }
-
-        .bg-balanco {
-            background-color: #F5F5F5;
-        }
-
-        .table>tbody>tr>td {
-            vertical-align: middle !important;
-        }
-
-        .btn-edit,
-        .btn-del {
-            font-size: 1.25rem;
-        }
-
-        .btn-secondary {
-            background-color: #A6ACB1 !important;
-            border-color: #A6ACB1 !important;
-        }
-
-        .table-responsive tr th.vl {
-            min-width: 125px !important;
-        }
-    </style>
 </head>
 
 <body>
@@ -188,7 +75,7 @@ $data = json_decode($str, true);
                     </div>
 
                     <div class="form-group col my-auto">
-                        <button id="new_category" type="button" class="btn btn-light btn-sm float-right">Nova categoria</button>
+                        <button id="new_category" type="button" onclick="newCategory()" class="btn btn-light btn-sm float-right">Nova categoria</button>
                     </div>
                 </div>
 
@@ -197,31 +84,31 @@ $data = json_decode($str, true);
 
         <div class="btnMeses row mb-3">
             <div class="col-3 text-center pr-2 mt-3">
-                <a id="month_1"  href="#m1"  data-tab="m1"  class="btn btn-light btn-block">JAN</a>
+                <a id="month_1" href="#m1" data-tab="m1" class="btn btn-light btn-block">JAN</a>
             </div>
             <div class="col-3 text-center px-2 mt-3">
-                <a id="month_2"  href="#m2"  data-tab="m2"  class="btn btn-light btn-block">FEV</a>
+                <a id="month_2" href="#m2" data-tab="m2" class="btn btn-light btn-block">FEV</a>
             </div>
             <div class="col-3 text-center px-2 mt-3">
-                <a id="month_3"  href="#m3"  data-tab="m3"  class="btn btn-light btn-block">MAR</a>
+                <a id="month_3" href="#m3" data-tab="m3" class="btn btn-light btn-block">MAR</a>
             </div>
             <div class="col-3 text-center pl-2 mt-3">
-                <a id="month_4"  href="#m4"  data-tab="m4"  class="btn btn-light btn-block">ABR</a>
+                <a id="month_4" href="#m4" data-tab="m4" class="btn btn-light btn-block">ABR</a>
             </div>
             <div class="col-3 text-center pr-2 mt-3">
-                <a id="month_5"  href="#m5"  data-tab="m5"  class="btn btn-light btn-block">MAI</a>
+                <a id="month_5" href="#m5" data-tab="m5" class="btn btn-light btn-block">MAI</a>
             </div>
             <div class="col-3 text-center px-2 mt-3">
-                <a id="month_6"  href="#m6"  data-tab="m6"  class="btn btn-light btn-block">JUN</a>
+                <a id="month_6" href="#m6" data-tab="m6" class="btn btn-light btn-block">JUN</a>
             </div>
             <div class="col-3 text-center px-2 mt-3">
-                <a id="month_7"  href="#m7"  data-tab="m7"  class="btn btn-light btn-block">JUL</a>
+                <a id="month_7" href="#m7" data-tab="m7" class="btn btn-light btn-block">JUL</a>
             </div>
             <div class="col-3 text-center pl-2 mt-3">
-                <a id="month_8"  href="#m8"  data-tab="m8"  class="btn btn-light btn-block">AGO</a>
+                <a id="month_8" href="#m8" data-tab="m8" class="btn btn-light btn-block">AGO</a>
             </div>
             <div class="col-3 text-center pr-2 mt-3">
-                <a id="month_9"  href="#m9"  data-tab="m9"  class="btn btn-light btn-block">SET</a>
+                <a id="month_9" href="#m9" data-tab="m9" class="btn btn-light btn-block">SET</a>
             </div>
             <div class="col-3 text-center px-2 mt-3">
                 <a id="month_10" href="#m10" data-tab="m10" class="btn btn-light btn-block">OUT</a>
@@ -234,179 +121,181 @@ $data = json_decode($str, true);
             </div>
         </div>
     </div>
-    <div class="container pb-3 bg-fa">
+
+    <div class="container pb-3 ">
+        <hr>
         <div class="tab-content clearfix">
 
             <?php
-                foreach ($data as $year => $months)
-                {
-                    if ($year == '2021')
-                    {
-                        foreach ($months as $key => $movs)
-                        {
-                            $mes_ent = 0;
-                            $mes_sai = 0;
-                            $mes_ttl = 0;
+            foreach ($data as $year => $months) {
+                if ($year == '2021') {
+                    foreach ($months as $key => $movs) {
+                        $mes_ent = 0;
+                        $mes_sai = 0;
+                        $mes_ttl = 0;
 
-                            foreach ($movs as $i => $value)
-                            {
-                                if ($value['type']) {
-                                    $mes_ent += $value['value'];
-                                } else {
-                                    $mes_sai += $value['value'];
-                                }
-                            }
-
-                            $mes_ttl = ($mes_ent - $mes_sai);
-
-
-                            if ($mes_ttl > 0) {
-                                $txt = "text-entrada";
-                                $sgn = "+R$ ";
-                            } elseif ($mes_ttl < 0) {
-                                $mes_ttl = substr($mes_ttl, 1);
-                                $txt = "text-saida";
-                                $sgn = "-R$ ";
+                        foreach ($movs as $i => $value) {
+                            if ($value['type']) {
+                                $mes_ent += $value['value'];
                             } else {
-                                $txt = "";
-                                $sgn = "R$ ";
+                                $mes_sai += $value['value'];
                             }
-            ?>
-            <!-- MES <?=$key; ?> -->
-            <div id="m<?=$key; ?>" class="tab-pane px-3 pt-3 pb-0 bg-fa active">
-                <div class="row">
-
-                    <!-- Titulo e btn Movimento -->
-                    <div class="col-12">
-                        <div class="justify-content-between">
-                            <p class="h4 mb-0 float-left"><?=formatDate($key,$year); ?></p>
-                            <button id="new_category" type="button" class="btn btn-secondary btn-sm float-right">Novo movimento</button>
-                        </div>
-                    </div>
-
-                    <!-- Tabela do mês atual -->
-                    <div class="col-12 mt-3 bg-mesAtual">
-                        <div class="d-flex justify-content-between">
-                            <p class="small mt-3 mb-2 ">Entradas e saídas deste mês</p>
-
-                            <a id="btnMesAtual" class="text-dark " data-toggle="collapse" href="#table-mesAtual-jan" role="button" aria-expanded="true" aria-controls="table-mesAtual-jan">
-                                <i class="bi bi-arrow-up-square" style="font-size: 1.5rem;"></i>
-                            </a>
-                        </div>
-
-                        <table id="table-mesAtual-jan" class="table table-borderless table-mesAtual collapse show">
-                            <tbody>
-                                <tr>
-                                    <td class="text-left py-0 text-entrada">Entradas:</td>
-                                    <td class="text-right py-0 text-entrada"><?= $sgn . number_format($mes_ent, 2, ',', '.');?></td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left py-0 text-saida">Saídas:</td>
-                                    <td class="text-right py-0 text-saida"><?= $sgn . number_format($mes_sai, 2, ',', '.');?></td>
-                                </tr>
-                                <tr>
-                                    <td class="py-0" colspan="2"> <hr> </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left py-0 <?= $txt ?>">Total:</td>
-                                    <td class="text-right py-0 <?= $txt ?>"><?= $sgn . number_format($mes_ttl, 2, ',', '.');?></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Tabela geral -->
-                    <div class="col-12 my-3 bg-balanco">
-                        <div class="d-flex justify-content-between">
-                            <p class="small mt-3 mb-2">Balanço geral</p>
-
-                            <a id="btnBalancoGeral" class="text-dark " data-toggle="collapse" href="#table-balanco-jan" role="button" aria-expanded="false" aria-controls="table-balanco-jan">
-                                <i class="bi bi-arrow-down-square " style="font-size: 1.5rem;"></i>
-                            </a>
-
-                        </div>
-
-                        <table id="table-balanco-jan" class="table table-borderless table-balanco collapse">
-                            <tbody>
-                                <tr>
-                                    <td class="text-left py-0 text-entrada">Entradas:</td>
-                                    <td class="text-right py-0 text-entrada">R$ 0,00</td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left py-0 text-saida">Saídas:</td>
-                                    <td class="text-right py-0 text-saida">R$ 0,00</td>
-                                </tr>
-                                <tr>
-                                    <td class="py-0" colspan="2"> <hr> </td>
-                                </tr>
-                                <tr>
-                                    <td class="text-left py-0 text-entrada">Total:</td>
-                                    <td class="text-right py-0 text-entrada">R$ 0,00</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Tabela movimentos -->
-                    <div class="col-12 mt-0 bg-balanco">
-                        <div class="d-flex justify-content-between">
-                            <p class="small mt-3 mb-2 ">Movimentos deste mês</p>
-
-                        </div>
-
-                        <div class="table-responsive">
-                            <table id="tableMovimento_m<?=$key; ?>" class="table table-sm table-hover">
-                                <thead>
-                                    <tr>
-                                        <th class="text-center"    >#</th>
-                                        <th class=""               >Descrição</th>
-                                        <th class=""               >Categoria</th>
-                                        <th class="text-center vl" >Valor</th>
-                                        <th class="text-center"    >Ações</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-            <?php
-
-                            foreach ($movs as $i => $value)
-                            {
-                                if ($value['type']) {
-                                    $txt = "text-entrada";
-                                    $sgn = "+R$ ";
-                                } else {
-                                    $txt = "text-saida";
-                                    $sgn = "-R$ ";
-                                }
-            ?>
-                                    <tr>
-                                        <td class="text-center"><?= $value['id'] ?></td>
-                                        <td class=""><?= $value['descrip'] ?></td>
-                                        <td class=""><?= $value['category'] ?></td>
-                                        <td class="text-right <?= $txt ?>"><?= $sgn . number_format($value['value'], 2, ',', '.'); ?></td>
-                                        <td class="text-center d-flex justify-content-center pt-0">
-                                            <button class="btn btn-link text-primary btn-edit p-1" data-id="">
-                                                <i class="bi bi-pencil-square align-middle mb-5"></i>
-                                            </button>
-                                            <button class="btn btn-link text-danger btn-del p-1" data-id="">
-                                                <i class="bi bi-trash align-middle mb-5"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-            <?php
-                            }
-            ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <?php
                         }
+
+                        $mes_ttl = ($mes_ent - $mes_sai);
+
+
+                        if ($mes_ttl > 0) {
+                            $txt = "text-entrada";
+                            $sgn = "+R$ ";
+                        } elseif ($mes_ttl < 0) {
+                            $mes_ttl = substr($mes_ttl, 1);
+                            $txt = "text-saida";
+                            $sgn = "-R$ ";
+                        } else {
+                            $txt = "";
+                            $sgn = "R$ ";
+                        }
+            ?>
+                        <!-- MES <?= $key; ?> -->
+                        <div id="m<?= $key; ?>" class="tab-pane px-3 pb-0 active">
+                            <!-- Titulo e btn Movimento -->
+                            <div class="row ">
+                                <div class="col justify-content-between px-0">
+                                    <p class="h4 mb-0 float-left"><?= formatDate($key, $year); ?></p>
+                                    <button id="new_category" type="button" onclick="newMoviment()" class="btn btn-secondary btn-sm float-right">Novo movimento</button>
+                                </div>
+                            </div>
+
+                            <!-- Tabela do mês atual -->
+                            <div class="row">
+                                <div class="col-12 mt-3 bg-mesAtual">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="small mt-3 mb-2 ">Entradas e saídas deste mês</p>
+
+                                        <a id="btnMesAtual" class="text-dark " data-toggle="collapse" href="#table-mesAtual-jan" role="button" aria-expanded="true" aria-controls="table-mesAtual-jan">
+                                            <i class="bi bi-arrow-up-square" style="font-size: 1.5rem;"></i>
+                                        </a>
+                                    </div>
+
+                                    <table id="table-mesAtual-jan" class="table table-borderless table-mesAtual collapse show">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-left py-0 text-entrada">Entradas:</td>
+                                                <td class="text-right py-0 text-entrada"><?= $sgn . number_format($mes_ent, 2, ',', '.'); ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left py-0 text-saida">Saídas:</td>
+                                                <td class="text-right py-0 text-saida"><?= $sgn . number_format($mes_sai, 2, ',', '.'); ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-0" colspan="2">
+                                                    <hr>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left py-0 <?= $txt ?>">Total:</td>
+                                                <td class="text-right py-0 <?= $txt ?>"><?= $sgn . number_format($mes_ttl, 2, ',', '.'); ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Tabela geral -->
+                            <div class="row">
+                                <div class="col-12 my-3 bg-balanco">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="small mt-3 mb-2">Balanço geral</p>
+
+                                        <a id="btnBalancoGeral" class="text-dark " data-toggle="collapse" href="#table-balanco-jan" role="button" aria-expanded="false" aria-controls="table-balanco-jan">
+                                            <i class="bi bi-arrow-down-square " style="font-size: 1.5rem;"></i>
+                                        </a>
+
+                                    </div>
+
+                                    <table id="table-balanco-jan" class="table table-borderless table-balanco collapse">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-left py-0 text-entrada">Entradas:</td>
+                                                <td class="text-right py-0 text-entrada">R$ 0,00</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left py-0 text-saida">Saídas:</td>
+                                                <td class="text-right py-0 text-saida">R$ 0,00</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="py-0" colspan="2">
+                                                    <hr>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left py-0 text-entrada">Total:</td>
+                                                <td class="text-right py-0 text-entrada">R$ 0,00</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Tabela movimentos -->
+                            <div class="row">
+                                <div class="col-12 mt-0 bg-balanco">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="small mt-3 mb-2 ">Movimentos deste mês</p>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table id="tableMovimento_m<?= $key; ?>" class="table table-sm table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th class="">Descrição</th>
+                                                    <th class="">Categoria</th>
+                                                    <th class="text-center vl">Valor</th>
+                                                    <th class="text-center">Ações</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $count = 1;
+                                                foreach ($movs as $i => $value) {
+                                                    if ($value['type']) {
+                                                        $txt = "text-entrada";
+                                                        $sgn = "+R$ ";
+                                                    } else {
+                                                        $txt = "text-saida";
+                                                        $sgn = "-R$ ";
+                                                    }
+                                                ?>
+                                                    <tr>
+                                                        <td class="text-center"><?= $count++ ?></td>
+                                                        <td class=""><?= $value['descrip'] ?></td>
+                                                        <td class=""><?= $value['category'] ?></td>
+                                                        <td class="text-right <?= $txt ?>"><?= $sgn . number_format($value['value'], 2, ',', '.'); ?></td>
+                                                        <td class="text-center d-flex justify-content-center pt-0">
+                                                            <button class="btn btn-link text-primary btn-edit p-1" data-id="<?= $value['id'] ?>">
+                                                                <i class="bi bi-pencil-square align-middle mb-5"></i>
+                                                            </button>
+                                                            <button class="btn btn-link text-danger btn-del p-1" data-id="<?= $value['id'] ?>">
+                                                                <i class="bi bi-trash align-middle mb-5"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                <?php
+                                                }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+            <?php
                     }
                 }
+            }
             ?>
 
         </div>
@@ -424,34 +313,22 @@ $data = json_decode($str, true);
         </div>
     </footer>
 
+
     <!-- Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
-    <!-- Bootstrap Table JS -->
-    <script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
     <!-- Select 2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.13.0/dist/sweetalert2.all.min.js"></script>
+    <!-- Date range picker -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 
+    <script src="includes/functions.js"></script>
     <!-- Custom JS -->
     <script>
-
-        // for(let i = 1; i <= 12; i++) {
-        //     $('#tableMovimento_m' + i).bootstrapTable();
-        // }
-
-        $("#search_year").select2();
-        $("#filter_category").select2();
-
-        $(".btnMeses a").on('click', function() {
-            $('.btnMeses a').removeClass('active');
-            $(this).addClass('active');
-            $('.tab-pane').removeClass('active');
-            $('#' + $(this).data('tab')).addClass('active');
-        });
-
         let month_curr = <?= date('m'); ?>;
         switch (month_curr) {
             case 1:
@@ -492,21 +369,58 @@ $data = json_decode($str, true);
                 break;
         }
 
-        $('#btnMesAtual').click(function() {
-            $(this).find('i').toggleClass('bi-arrow-up-square bi-arrow-down-square');
-        });
-        $('#btnBalancoGeral').click(function() {
-            $(this).find('i').toggleClass('bi-arrow-up-square bi-arrow-down-square');
-        });
-
-        window.editFunc = function(id) {
-            $('#' + id).toggleClass('d-none d-table-row');
+        function newCategory() {
+            Swal.fire({
+                title: 'Adicionar categoria',
+                html: `<input type="text" id="name" class="swal2-input" placeholder="Nome">`,
+                confirmButtonText: 'Salvar',
+                focusConfirm: false,
+                preConfirm: () => {
+                    const name = Swal.getPopup().querySelector('#name').value;
+                    if (!name) {
+                        Swal.showValidationMessage(`Insira um nome para a categoria`)
+                    }
+                    return {
+                        name: name,
+                    }
+                }
+            }).then((result) => {
+                // Swal.fire(`Nome: ${result.value.name}`.trim())
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Categoria adicionada!',
+                    timer: 4000,
+                    showConfirmButton: false
+                }).then(function() {
+                    window.location.reload();
+                });
+            });
         }
 
-        window.onload = function() {
-            $('.tab-pane').removeClass('active');
-            $('#month_' + month_curr).addClass('active');
-            $('#m' + month_curr).addClass('active');
+        function newMoviment() {
+            Swal.fire({
+                title: 'Date picker',
+                html: '<input id="datepicker">',
+                showConfirmButton: false,
+                customClass: 'swal2-overflow',
+                onOpen: function() {
+                    $('#datepicker').daterangepicker({
+                        "singleDatePicker": true,
+                        "showDropdowns": true,
+                        "minYear": 2021,
+                        "maxYear": 2025,
+                        "autoApply": true,
+                        "linkedCalendars": false,
+                        "showCustomRangeLabel": false,
+                        "startDate": Date.now()
+                    }, function(start, end, label) {
+                        console.log('New date range selected: ' + start.format('YYYY-MM-DD') );
+                    });
+                },
+            }).then(function(result) {
+
+            });
         }
     </script>
 </body>
