@@ -439,10 +439,8 @@ else
                             </td>
                         </tr>
                         <tr>
-                            <td><strong style="font-size:22px; color:<?php if ($resultado_geral < 0) echo "#C00";
-                                                                        else echo "#030" ?>">Resultado:</strong></td>
-                            <td align="right"><strong style="font-size:22px; color:<?php if ($resultado_geral < 0) echo "#C00";
-                                                                                    else echo "#030" ?>"><?php echo formata_dinheiro($resultado_geral) ?></strong></td>
+                            <td><strong style="font-size:22px; color:<?php if ($resultado_geral < 0) echo "#C00"; else echo "#030" ?>">Resultado:</strong></td>
+                            <td align="right"><strong style="font-size:22px; color:<?php if ($resultado_geral < 0) echo "#C00"; else echo "#030" ?>"><?php echo formata_dinheiro($resultado_geral) ?></strong></td>
                         </tr>
                     </table>
 
