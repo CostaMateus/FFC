@@ -1,10 +1,10 @@
 <?php
 
 //Configuracao do Banco de dados
-$host      = "localhost";
+$host      = "localhost:8080";
 $user      = "root";
-$pass      = "";
-$dbname    = "laravel_test";
+$pass      = "root";
+$dbname    = "m_testes";
 
 //Titulo do seu livro Caixa, geralmente seu nome
 $lc_titulo = "Costa";
